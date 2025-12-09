@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #064935;
+    color: white;
+    padding: 15px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 12px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login {
+    font-size: 11px;
+    color: #fff;
+}
+
+.user-icon {
+    font-size: 14px;
+}
+
+/* HERO */
+.hero {
+    background: #064935;
+    padding: 40px 0;
+    color: white;
+}
+
+.hero-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-text h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    line-height: 1.5;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.shop-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.hero-logo img {
+    width: 240px;
+}
+
+/* PRODUCTS TITLE */
+.product-title {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* PRODUCT SECTION */
+.products {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background: #e5bf00;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border-radius: 10px;
+    border: 3px solid #d4aa00;
+}
+
+.product-left h4 {
+    margin: 0 0 10px 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.product-left button {
+    background: #000;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+}
+
+.product-img {
+    width: 120px;
+    height: auto;
+}
+
+.single {
+    grid-column: span 2;
+}

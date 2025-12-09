@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #064935;
+    color: white;
+    padding: 15px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.auth-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* CONTENT */
+.content {
+    margin-top: 40px;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 350px
+}
+
+/* SEARCH */
+.search-wrapper {
+    position: relative;
+    width: 50%;
+    margin-left: 1500px;
+}
+
+.search-input {
+    border-radius: 25px;
+    padding-left: 40px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 18px;
+    color: gray;
+}
+
+/* CATEGORY BUTTONS */
+.category-buttons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.category {
+    border-radius: 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+}
+
+.category.active {
+    background: black;
+    color: white;
+}
+
+/* PRODUCT GRID */
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product-text {
+    margin-top: 10px;
+}
+
+.tag {
+    font-size: 12px;
+    color: gray;
+}
