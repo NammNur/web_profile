@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.location-title {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.logo-img {
+    width: 120px;
+    display: block;
+    margin: 20px auto;
+}
+.location-section {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+.address-text {
+    font-size: 13px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+.map-img {
+    width: 100px;
+    height: 100px;
+    background: #e6e6e6;
+    border-radius: 10px;
+    display: block;
+    object-fit: cover;
+}
+.map-wrapper {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+}

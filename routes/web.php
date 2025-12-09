@@ -49,3 +49,6 @@ Route::get('/logout', function () {
 Route::get('/katalog', function () {
     return view('katalog');
 })->name('katalog');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
