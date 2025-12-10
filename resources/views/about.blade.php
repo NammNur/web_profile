@@ -100,19 +100,19 @@
 
             <div class="nilai-item">
                 <div class="nilai-circle circle-1">
-                    <img src="{{ asset('asset/icons/synergy.png') }}" class="nilai-icon">
+                    <img src="{{ asset('asset/img/note.png') }}" class="nilai-icon">
                 </div>
             </div>
 
             <div class="nilai-item">
                 <div class="nilai-circle circle-2">
-                    <img src="{{ asset('asset/icons/ladder.png') }}" class="nilai-icon">
+                    <img src="{{ asset('asset/img/ladder.png') }}" class="nilai-icon">
                 </div>
             </div>
 
             <div class="nilai-item">
                 <div class="nilai-circle circle-3">
-                    <img src="{{ asset('asset/icons/loyal.png') }}" class="nilai-icon">
+                    <img src="{{ asset('asset/img/loyal.png') }}" class="nilai-icon">
                 </div>
             </div>
 

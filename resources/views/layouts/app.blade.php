@@ -8,6 +8,7 @@
     {{-- CSS Utama --}}
     <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/katalog.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/contact.css') }}">
 </head>
 <body>
 

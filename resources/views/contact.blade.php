@@ -4,67 +4,49 @@
 
 <link rel="stylesheet" href="{{ asset('asset/css/contact.css') }}">
 
-<div class="container py-4">
+<div class="container py-5">
 
     <!-- TITLE -->
-    <h6 class="location-title text-center">LOKASI</h6>
+    <h6 class="text-center mb-4" style="letter-spacing: 2px; font-size: 14px;">LOKASI</h6>
 
-    <!-- LOGO -->
-    <div class="text-center">
-        <img src="https://via.placeholder.com/120" class="logo-img" alt="Company Logo">
+    <!-- LOGO + TEXT -->
+    <div class="d-flex justify-content-center align-items-center mb-5">
+        <img src="{{ asset('asset/img/logo.png') }}" 
+             alt="Logo" 
+             style="width:130px; margin-right:20px;">
+        
+        <div>
+            <h2 class="mb-0" style="font-weight:900;">CV SKL<br>ANDI JAYA</h2>
+            <p style="margin-top:5px; font-size:14px;">
+                Kantor Pusat, Toko<br>Penjualan & Rumah Produksi
+            </p>
+        </div>
     </div>
 
-    <div class="location-section">
+    <!-- CONTENT WRAPPER -->
+    <div style="max-width: 950px; margin:auto;">
 
         <p class="address-text">
-            CV SKL Andi Jaya memiliki 1 kantor pusat, 1 toko penjualan dan 5 rumah produksi yang berlokasi di tempat yang berbeda, diantaranya:
+            CV SKL Andi Jaya memiliki 1 kantor pusat, 1 toko penjualan dan 5 rumah produksi 
+            yang berlokasi tempat yang berbeda, diantaranya:
         </p>
 
-        <!-- SECTION 1 -->
+        <!-- 1 -->
         <p class="address-text">
-            Kantor Pusat, toko penjualan atribut dan Rumah Produksi Airbrut & logam beralamat di Dusun 3 Rt 13/03 Desa Sindang Kecamatan Lebakwangi, Kabupaten Kuningan.
-        </p>
-
-        <div class="map-wrapper">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 1">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 1">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 1">
-        </div>
-
-        <!-- SECTION 2 -->
-        <p class="address-text">
-            Rumah Produksi Percetakan dan Rumah Produksi Jersey beralamat di Perkotaan Perumahan Graha Mutiara, Desa Sadaraja, Kecamatan Ciwaru, Kabupaten Kuningan.
+            Kantor Pusat, toko penjualan atribut dan Rumah Produksi Atribut & logam beralamat di 
+            Dusun 3 Rt 13/03 Desa Sindang Kecamatan Lebakwangi, Kabupaten Kuningan.
         </p>
 
         <div class="map-wrapper">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 2">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 2">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 2">
+            <img src="{{ asset('asset/images/map1.png') }}" class="map-img">
+            <img src="{{ asset('asset/images/map2.png') }}" class="map-img">
+            <img src="{{ asset('asset/images/map3.png') }}" class="map-img">
         </div>
 
-        <!-- SECTION 3 -->
-        <p class="address-text">
-            Rumah Produksi Konveksi 1 beralamat di Jalan Raya Desa Pasayangan, Desa Pasayangan, Kecamatan Lebakwangi, Kabupaten Kuningan.
-        </p>
-
-        <div class="map-wrapper">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 3">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 3">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 3">
-        </div>
-
-        <!-- SECTION 4 -->
-        <p class="address-text">
-            Rumah Produksi Konveksi 2 (Bordir dan Sablon) beralamat di Jalan Raya Desa Bendungan, Desa Bendungan, Kecamatan Lebakwangi, Kabupaten Kuningan.
-        </p>
-
-        <div class="map-wrapper">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 4">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 4">
-            <img src="https://via.placeholder.com/100" class="map-img" alt="Lokasi 4">
-        </div>
+        <!-- ---------- Tambahkan lokasi berikut dengan pola yang sama ----------- -->
 
     </div>
+
 </div>
 
 @endsection
