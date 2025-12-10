@@ -38,9 +38,9 @@
         </p>
 
         <div class="map-wrapper">
-            <img src="{{ asset('asset/images/map1.png') }}" class="map-img">
-            <img src="{{ asset('asset/images/map2.png') }}" class="map-img">
-            <img src="{{ asset('asset/images/map3.png') }}" class="map-img">
+            <img src="{{ asset('asset/img/map.png') }}" class="map-img">
+            <img src="{{ asset('asset/img/map.png') }}" class="map-img">
+            <img src="{{ asset('asset/img/map.png') }}" class="map-img">
         </div>
 
         <!-- ---------- Tambahkan lokasi berikut dengan pola yang sama ----------- -->
