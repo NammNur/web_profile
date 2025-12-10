@@ -1,38 +1,92 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
 }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Title */
 .location-title {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
+    font-size: 24px;
+    font-weight: bold;
     text-transform: uppercase;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
 }
+
+/* Logo */
 .logo-img {
     width: 120px;
-    display: block;
+    height: auto;
     margin: 20px auto;
+    display: block;
+    border-radius: 8px;
 }
+
+/* Location Section */
 .location-section {
     max-width: 900px;
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
 }
+
+/* Address Text */
 .address-text {
-    font-size: 13px;
-    margin-bottom: 15px;
+    font-size: 14px;
     text-align: justify;
+    margin-bottom: 20px;
+    color: #555;
+    line-height: 1.8;
 }
-.map-img {
-    width: 100px;
-    height: 100px;
-    background: #e6e6e6;
-    border-radius: 10px;
-    display: block;
-    object-fit: cover;
-}
+
+/* Map Wrapper */
 .map-wrapper {
     display: flex;
     gap: 20px;
     justify-content: center;
     margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+/* Map Image */
+.map-img {
+    width: 120px;
+    height: 120px;
+    background: #eee;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.map-img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .location-title {
+        font-size: 18px;
+    }
+
+    .address-text {
+        font-size: 13px;
+    }
+
+    .map-wrapper {
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+
+    .map-img {
+        width: 100px;
+        height: 100px;
+    }
 }
