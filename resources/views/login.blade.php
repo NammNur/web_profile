@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
-    <style>
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -85,10 +80,6 @@
         }
     </style>
 
-</head>
-
-<body>
-
     <div class="overlay">
         <div class="login-card">
             <h2>Login</h2>
@@ -118,4 +109,4 @@
 
 </body>
 
-</html>
+@endsection

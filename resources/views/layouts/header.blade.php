@@ -25,7 +25,7 @@
             </nav>
 
             <div class="auth">
-                <a href="{{ route('login') }}" class="login">Login/Register</a>
+                <a href="{{ route('login') }}" class="login"><img src="{{ asset('asset/img/login-icon.png') }}" alt="Login/Register"></a>
                 <span class="user-icon">⚫</span>
             </div>
         </div>
