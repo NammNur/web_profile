@@ -50,25 +50,35 @@ body {
     margin-left: 350px
 }
 
-/* SEARCH */
+/* ================= SEARCH ================= */
 .search-wrapper {
     position: relative;
-    width: 50%;
-    margin-left: 1500px;
+    width: 100%;
+    max-width: 420px;
+    margin: 15px auto 30px auto; /* INI YANG BIKIN KE TENGAH */
 }
 
 .search-input {
+    width: 100%;
     border-radius: 25px;
-    padding-left: 40px;
+    padding: 10px 16px 10px 42px;
+    border: 1px solid #ccc;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #064935;
 }
 
 .search-icon {
     position: absolute;
-    left: 15px;
-    top: 10px;
-    font-size: 18px;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
     color: gray;
 }
+
 
 /* CATEGORY BUTTONS */
 .category-buttons {

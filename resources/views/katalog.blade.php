@@ -34,15 +34,15 @@
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/PDH.png') }}" alt="">
-                <p class="category">Product Konveksi</p>
-                <h4 class="product-name">Seragam PDH</h4>
+                <img src="{{ asset('asset/img/jersey.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Jersey Futsal TNI</h4>
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/T-shirt.png') }}" alt="">
-                <p class="category">Product Konveksi</p>
-                <h4 class="product-name">T-Shirt Printing</h4>
+                <img src="{{ asset('asset/img/jersey swoba.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Jersey Futsal Swoba</h4>
             </div>
 
             <div class="seller-card">
@@ -52,27 +52,27 @@
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/stiker.png') }}" alt="">
-                <p class="category">Product Printing</p>
-                <h4 class="product-name">Stiker A3</h4>
+                <img src="{{ asset('asset/img/jersey Bola.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Jersey Sepak Bola</h4>
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/printing.png') }}" alt="">
-                <p class="category">Product Printing</p>
-                <h4 class="product-name">Kartu Nama</h4>
+                <img src="{{ asset('asset/img/jersey Futsal.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Jersey Futsal Andi Jaya</h4>
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/jaket.png') }}" alt="">
-                <p class="category">Product Konveksi</p>
-                <h4 class="product-name">Jaket</h4>
+                <img src="{{ asset('asset/img/jersey Indo.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Indo Mix Argentina</h4>
             </div>
 
             <div class="seller-card">
-                <img src="{{ asset('asset/img/banner.png') }}" alt="">
-                <p class="category">Product Printing</p>
-                <h4 class="product-name">Banner</h4>
+                <img src="{{ asset('asset/img/jersey bola2.png') }}" alt="">
+                <p class="category">Product Jersey</p>
+                <h4 class="product-name">Jersey Sepak Bola</h4>
             </div>
         </div>
         <div class="more-container">
@@ -80,6 +80,7 @@
         </div>
 
     </section>
+    
 
     <div class="text-center mt-4">
         <button class="btn btn-dark rounded-pill px-4">Buat Pesanan</button>
