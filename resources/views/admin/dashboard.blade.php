@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin Dashboard</title>
+
 <style>
     body {
         margin: 0;
@@ -137,38 +138,45 @@
     }
 </style>
 </head>
+
 <body>
 
 <div class="sidebar">
     <div class="logo">
-       <img src="{{ asset('asset/img/logo.png') }}" alt="logo" />
-
+        <img src="{{ asset('asset/img/logo.png') }}" />
         <h2>SKL ANDI JAYA</h2>
     </div>
 
     <div class="menu">
-        <a href="#" class="active">📊 Dashboard</a>
-       <a href="{{ route('admin.products') }}">🏷️ Products</a>
+        <a href="{{ route('admin.dashboard') }}" class="active">📊 Dashboard</a>
+        <a href="{{ route('admin.products') }}">🏷️ Products</a>
         <a href="#">👥 Customers</a>
         <a href="#">🛒 Orders</a>
     </div>
 
     <div class="logout">
-        <a href="{{ route('logout') }}">🔴 Log out</a>
+        <form action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+            <button style="background:none;border:none;color:red;font-weight:bold;cursor:pointer">
+                🔴 Log out
+            </button>
+        </form>
     </div>
 </div>
 
 <div class="main">
+
     <div class="search">
         <input type="text" placeholder="🔍 Search" />
     </div>
 
     <div class="stats">
+
         <div class="box">
             <div class="box-icon">👤</div>
             <div class="box-content">
                 <h4>Total User</h4>
-                <p>12.590</p>
+                <p>{{ number_format($totalUser) }}</p>
             </div>
         </div>
 
@@ -176,7 +184,7 @@
             <div class="box-icon">🛒</div>
             <div class="box-content">
                 <h4>Orders</h4>
-                <p>16.990</p>
+                <p>{{ number_format($totalOrder) }}</p>
             </div>
         </div>
 
@@ -184,7 +192,7 @@
             <div class="box-icon">💲</div>
             <div class="box-content">
                 <h4>Last Week Earning</h4>
-                <p>$41,983</p>
+                <p>Rp {{ number_format($lastWeekEarning, 0, ',', '.') }}</p>
             </div>
         </div>
 
@@ -192,9 +200,10 @@
             <div class="box-icon">🚚</div>
             <div class="box-content">
                 <h4>Products Delivered</h4>
-                <p>5.970</p>
+                <p>{{ number_format($deliveredProduct) }}</p>
             </div>
         </div>
+
     </div>
 </div>
 

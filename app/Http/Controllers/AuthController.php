@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -19,7 +22,26 @@ class AuthController extends Controller
     // Proses login (langsung redirect tanpa validasi)
     public function login(Request $request)
     {
-        return redirect()->route('admin.dashboard'); 
+        // Validate input
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        $remember = $request->filled('remember');
+
+        // Attempt to authenticate
+        if (Auth::attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+
+            // Redirect to intended page or home
+            return redirect()->intended(route('home'));
+        }
+
+        // Authentication failed
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->onlyInput('email');
     }
 
     // Logout
@@ -43,7 +65,25 @@ class AuthController extends Controller
 
     // Proses register (langsung balik ke login)
     public function register(Request $request)
-    {
-        return redirect()->route('login');
-    }
+{
+    $request->validate([
+        'email' => 'required|email|unique:users,email',
+        'username' => 'required|unique:users,username',
+        'nama' => 'required|string|max:255',
+        'telepon' => 'required|string|max:20',
+        'password' => 'required|min:6',
+    ]);
+
+    User::create([
+        'email' => $request->email,
+        'username' => $request->username,
+        'nama' => $request->nama,
+        'telepon' => $request->telepon,
+        'password' => Hash::make($request->password),
+        'role' => 'user',
+    ]);
+
+    return redirect()->route('login')
+        ->with('success', 'Registrasi berhasil');
+}
 }

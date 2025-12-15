@@ -1,54 +1,118 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminDashboardController;
 
+/*
+|--------------------------------------------------------------------------
+| PUBLIC (BISA DIAKSES SEMUA)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
 
-Route::view('/admin-login', 'admin-login')->name('admin.login');
+/*
+|--------------------------------------------------------------------------
+| USER AUTH (GUEST ONLY)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+    // LOGIN USER
+    Route::get('/login', [AuthController::class, 'showLogin'])
+        ->name('login');
 
-Route::get('/admin/products', function () {
-    return view('admin.products');
-})->name('admin.products');
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('login.post');
 
-Route::get('/admin/products/manage/{type}', function ($type) {
-    switch ($type) {
-        case 'jersey':
-            return view('admin.manage-product', compact('type'));
-        case 'printing':
-            return view('admin.manage-productPrinting', compact('type'));
-        case 'konveksi':
-            return view('admin.manage-productKonveksi', compact('type'));
-        case 'bordir':
-            return view('admin.manage-productBordir', compact('type'));
-        case 'logam':
-            return view('admin.manage-productLogam', compact('type'));
-        default:
-            abort(404);
-    }
-})->name('admin.products.manage');
+    // REGISTER USER
+    Route::get('/register', [AuthController::class, 'showRegister'])
+        ->name('register');
 
+    Route::post('/register', [AuthController::class, 'register'])
+        ->name('register.post');
+});
 
-// ==== LOGIN ====
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+/*
+|--------------------------------------------------------------------------
+| USER LOGOUT (AUTH ONLY)
+|--------------------------------------------------------------------------
+*/
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
+/*
+|--------------------------------------------------------------------------
+| ADMIN AUTH (GUEST ONLY)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->middleware('guest')->group(function () {
 
-// ==== REGISTER ====
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+    // LOGIN ADMIN
+    Route::get('/login', [AdminAuthController::class, 'showLogin'])
+        ->name('admin.login');
 
-Route::get('/logout', function () {
-    return redirect()->route('home');
-})->name('logout');
-Route::get('/katalog', function () {
-    return view('katalog');
-})->name('katalog');
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+    Route::post('/login', [AdminAuthController::class, 'login'])
+        ->name('admin.login.post');
+
+    // REGISTER ADMIN
+    Route::get('/register', [AdminAuthController::class, 'showRegister'])
+        ->name('admin.register');
+
+    Route::post('/register', [AdminAuthController::class, 'register'])
+        ->name('admin.register.post');
+});
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN PANEL (AUTH + ROLE ADMIN)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+
+    // DASHBOARD (REAL DATABASE)
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');
+
+    // PRODUCTS
+    Route::get('/products', function () {
+        return view('admin.products');
+    })->name('admin.products');
+
+    // MANAGE PRODUCTS BY TYPE
+    Route::get('/products/manage/{type}', function ($type) {
+
+        $views = [
+            'jersey'   => 'admin.manage-product',
+            'printing' => 'admin.manage-productPrinting',
+            'konveksi' => 'admin.manage-productKonveksi',
+            'bordir'   => 'admin.manage-productBordir',
+            'logam'    => 'admin.manage-productLogam',
+        ];
+
+        abort_if(!array_key_exists($type, $views), 404);
+
+        return view($views[$type], compact('type'));
+
+    })->name('admin.products.manage');
+
+    // LOGOUT ADMIN
+    Route::post('/logout', [AdminAuthController::class, 'logout'])
+        ->name('admin.logout');
+});
+
+/*
+|--------------------------------------------------------------------------
+| USER AREA (AUTH ONLY)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    Route::view('/katalog', 'katalog')->name('katalog');
+
+});

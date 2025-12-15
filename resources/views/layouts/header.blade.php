@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +11,49 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="brand">SKL ANDI JAYA</div>
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+    <div class="nav-container">
 
-            <nav class="nav-links">
-                <a href="{{ route('home') }}">HOME</a>
-                <a href="{{ route('katalog') }}">KATALOG</a>
-                <a href="{{ route('about') }}">ABOUT</a>
-                <a href="{{ route('contact') }}">CONTACT</a>
-            </nav>
+        <!-- BRAND -->
+        <div class="brand">SKL ANDI JAYA</div>
 
-            <div class="auth">
-                <a href="{{ route('login') }}" class="login"><img src="{{ asset('asset/img/login-icon.png') }}" alt="Login/Register"></a>
-                <span class="user-icon">⚫</span>
-            </div>
+        <!-- NAV LINKS -->
+        <nav class="nav-links">
+            <a href="{{ route('home') }}">HOME</a>
+            <a href="{{ route('katalog') }}">KATALOG</a>
+            <a href="{{ route('about') }}">ABOUT</a>
+            <a href="{{ route('contact') }}">CONTACT</a>
+        </nav>
+
+        <!-- AUTH SECTION -->
+        <div class="auth">
+
+            {{-- JIKA USER SUDAH LOGIN --}}
+            @auth
+                <span class="user-name">
+                    {{ Auth::user()->nama }}
+                </span>
+
+                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                    @csrf
+                    <button type="submit" class="btn-logout">
+                        Logout
+                    </button>
+                </form>
+            @endauth
+
+            {{-- JIKA BELUM LOGIN --}}
+            @guest
+                <a href="{{ route('login') }}" class="login">
+                    <img src="{{ asset('asset/img/login-icon.png') }}" alt="Login">
+                </a>
+            @endguest
+
         </div>
-    </header>
+    </div>
+</header>
+<!-- ================= END NAVBAR ================= -->
+
+</body>
+</html>

@@ -133,7 +133,7 @@
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="logo">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+                <img src="{{ asset('asset/img/logo.png') }}" alt="logo">
                 <h2>SKL ANDI JAYA</h2>
             </div>
 
@@ -157,27 +157,27 @@
             <div class="product-grid">
 
                 <div class="product-card">
-                    <img src="{{ asset('img/jersey.png') }}" alt="">
+                    <img src="{{ asset('asset/img/jersey.png') }}" alt="">
                     <p>Produk Jersey</p>
                 </div>
 
                 <div class="product-card">
-                    <img src="{{ asset('img/printing.png') }}" alt="">
+                    <img src="{{ asset('asset/img/printing.png') }}" alt="">
                     <p>Produk Printing</p>
                 </div>
 
                 <div class="product-card">
-                    <img src="{{ asset('img/jaket.png') }}" alt="">
+                    <img src="{{ asset('asset/img/jaket.png') }}" alt="">
                     <p>Produk Konveksi</p>
                 </div>
 
                 <div class="product-card">
-                    <img src="{{ asset('img/bordir.png') }}" alt="">
+                    <img src="{{ asset('asset/img/bordir.png') }}" alt="">
                     <p>Produk Bordir</p>
                 </div>
 
                 <div class="product-card">
-                    <img src="{{ asset('img/logam.png') }}" alt="">
+                    <img src="{{ asset('asset/img/logam.png') }}" alt="">
                     <p>Produk Logam</p>
                 </div>
 
