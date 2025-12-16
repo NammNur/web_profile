@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,9 +76,13 @@ Route::prefix('admin')->middleware('guest')->group(function () {
 */
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
-    // DASHBOARD (REAL DATABASE)
+    // DASHBOARD
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');
+
+    // CUSTOMERS ✅
+    Route::get('/customers', [CustomerController::class, 'index'])
+        ->name('admin.customers');
 
     // PRODUCTS
     Route::get('/products', function () {

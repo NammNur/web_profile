@@ -225,7 +225,7 @@
             <div class="menu">
                 <a href="{{ route('admin.dashboard') }}">🏠 Dashboard</a>
                 <a class="active" href="{{ route('admin.products') }}">🏷️ Products</a>
-                <a href="#">👥 Customers</a>
+              <a href="{{ route('admin.customers') }}">👥 Customers</a>
                 <a href="#">🛒 Orders</a>
             </div>
 
