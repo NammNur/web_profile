@@ -35,7 +35,7 @@
                     Official Attributes
                 </p>
 
-                <a href="{{ route('katalog') }}" class="shop-btn">Shop Now</a>
+                <a href="{{ route('produk.index') }}" class="shop-btn">Shop Now</a>
             </div>
 
             <div class="hero-logo">

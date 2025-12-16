@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +15,14 @@ use App\Http\Controllers\CustomerController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
+
+/* ✅ KATALOG (INI YANG SEBELUMNYA BIKIN 404) */
+Route::get('/katalog', function () {
+    return view('katalog.index');
+})->name('katalog');
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +31,12 @@ Route::view('/contact', 'contact')->name('contact');
 */
 Route::middleware('guest')->group(function () {
 
-    // LOGIN USER
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
 
     Route::post('/login', [AuthController::class, 'login'])
         ->name('login.post');
 
-    // REGISTER USER
     Route::get('/register', [AuthController::class, 'showRegister'])
         ->name('register');
 
@@ -54,14 +60,12 @@ Route::post('/logout', [AuthController::class, 'logout'])
 */
 Route::prefix('admin')->middleware('guest')->group(function () {
 
-    // LOGIN ADMIN
     Route::get('/login', [AdminAuthController::class, 'showLogin'])
         ->name('admin.login');
 
     Route::post('/login', [AdminAuthController::class, 'login'])
         ->name('admin.login.post');
 
-    // REGISTER ADMIN
     Route::get('/register', [AdminAuthController::class, 'showRegister'])
         ->name('admin.register');
 
@@ -76,20 +80,16 @@ Route::prefix('admin')->middleware('guest')->group(function () {
 */
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
-    // DASHBOARD
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');
 
-    // CUSTOMERS ✅
     Route::get('/customers', [CustomerController::class, 'index'])
         ->name('admin.customers');
 
-    // PRODUCTS
     Route::get('/products', function () {
         return view('admin.products');
     })->name('admin.products');
 
-    // MANAGE PRODUCTS BY TYPE
     Route::get('/products/manage/{type}', function ($type) {
 
         $views = [
@@ -103,21 +103,20 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         abort_if(!array_key_exists($type, $views), 404);
 
         return view($views[$type], compact('type'));
-
     })->name('admin.products.manage');
 
-    // LOGOUT ADMIN
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
 });
 
 /*
 |--------------------------------------------------------------------------
-| USER AREA (AUTH ONLY)
+| USER AREA
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(function () {
 
-    Route::view('/katalog', 'katalog')->name('katalog');
+Route::get('/katalog', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 
-});
+
+

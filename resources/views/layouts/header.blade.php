@@ -21,7 +21,7 @@
         <!-- NAV LINKS -->
         <nav class="nav-links">
             <a href="{{ route('home') }}">HOME</a>
-            <a href="{{ route('katalog') }}">KATALOG</a>
+            <a href="{{ route('produk.index') }}">KATALOG</a>
             <a href="{{ route('about') }}">ABOUT</a>
             <a href="{{ route('contact') }}">CONTACT</a>
         </nav>
