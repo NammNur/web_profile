@@ -1,0 +1,25 @@
+/* ==============================
+   SIDEBAR DROPDOWN ORDERS
+============================== */
+
+.has-submenu .submenu {
+    display: none;
+    padding-left: 20px;
+}
+
+.has-submenu.open .submenu {
+    display: block;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu-toggle .arrow {
+    float: right;
+    transition: transform 0.3s ease;
+}
+
+.has-submenu.open .arrow {
+    transform: rotate(180deg);
+}

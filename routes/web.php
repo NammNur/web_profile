@@ -6,27 +6,22 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
-| PUBLIC (BISA DIAKSES SEMUA)
+| PUBLIC
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 
-/* ✅ KATALOG (INI YANG SEBELUMNYA BIKIN 404) */
-Route::get('/katalog', function () {
-    return view('katalog.index');
-})->name('katalog');
-
 /*
 |--------------------------------------------------------------------------
-| USER AUTH (GUEST ONLY)
+| USER AUTH (GUEST)
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
@@ -46,7 +41,7 @@ Route::middleware('guest')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| USER LOGOUT (AUTH ONLY)
+| USER LOGOUT
 |--------------------------------------------------------------------------
 */
 Route::post('/logout', [AuthController::class, 'logout'])
@@ -55,7 +50,34 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN AUTH (GUEST ONLY)
+| USER PRODUK & PESANAN (WAJIB LOGIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    // KATALOG PRODUK
+    Route::get('/produk', [ProdukController::class, 'index'])
+        ->name('produk.index');
+
+    Route::get('/produk/{id}', [ProdukController::class, 'show'])
+        ->name('produk.show');
+
+    // ===============================
+    // BUAT PESANAN (ORDER)
+    // ===============================
+
+    // halaman buat pesanan
+    Route::get('/produk/{id}/pesan', [OrderController::class, 'create'])
+        ->name('produk.pesan');
+
+    // simpan pesanan
+    Route::post('/produk/{id}/pesan', [OrderController::class, 'store'])
+        ->name('produk.pesan.store');
+});
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN AUTH (GUEST)
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->middleware('guest')->group(function () {
@@ -65,7 +87,6 @@ Route::prefix('admin')->middleware('guest')->group(function () {
 
     Route::post('/login', [AdminAuthController::class, 'login'])
         ->name('admin.login.post');
-
     Route::get('/register', [AdminAuthController::class, 'showRegister'])
         ->name('admin.register');
 
@@ -73,9 +94,10 @@ Route::prefix('admin')->middleware('guest')->group(function () {
         ->name('admin.register.post');
 });
 
+
 /*
 |--------------------------------------------------------------------------
-| ADMIN PANEL (AUTH + ROLE ADMIN)
+| ADMIN PANEL (AUTH + ADMIN)
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -89,6 +111,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/products', function () {
         return view('admin.products');
     })->name('admin.products');
+
+    Route::get('/products/create', [ProdukController::class, 'create'])
+        ->name('admin.products.create');
+
+    Route::post('/products', [ProdukController::class, 'store'])
+        ->name('admin.products.store');
 
     Route::get('/products/manage/{type}', function ($type) {
 
@@ -107,16 +135,34 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
+
+    // Admin order reports by kategori
+    Route::get('/orders/jersey', [AdminOrderController::class, 'jersey'])->name('admin.orders.jersey');
+    Route::get('/orders/konveksi', [AdminOrderController::class, 'konveksi'])->name('admin.orders.konveksi');
+    Route::get('/orders/printing', [AdminOrderController::class, 'printing'])->name('admin.orders.printing');
+    Route::get('/orders/logam', [AdminOrderController::class, 'logam'])->name('admin.orders.logam');
+    Route::get('/orders/bordir', [AdminOrderController::class, 'bordir'])->name('admin.orders.bordir');
 });
 
-/*
-|--------------------------------------------------------------------------
-| USER AREA
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/katalog', [ProdukController::class, 'index'])->name('produk.index');
-Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 
 
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
+    Route::get('/orders/index', [AdminOrderController::class, 'jersey'])
+        ->name('admin.orders.index');
+
+    Route::get('/orders/jersey', [AdminOrderController::class, 'jersey'])
+        ->name('admin.orders.jersey');
+
+    Route::get('/orders/konveksi', [AdminOrderController::class, 'konveksi'])
+        ->name('admin.orders.konveksi');
+
+    Route::get('/orders/printing', [AdminOrderController::class, 'printing'])
+        ->name('admin.orders.printing');
+
+    Route::get('/orders/logam', [AdminOrderController::class, 'logam'])
+        ->name('admin.orders.logam');
+
+    Route::get('/orders/bordir', [AdminOrderController::class, 'bordir'])
+        ->name('admin.orders.bordir');
+});

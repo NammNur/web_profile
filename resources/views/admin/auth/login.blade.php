@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
+@extends('layouts.auth')
 
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+@section('title', 'Login Admin')
+
+@section('content')
 
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-emerald-900 px-4">
 
@@ -50,7 +44,7 @@
             </a>
         </p>
 
-        <!-- Error Message -->
+        {{-- Error Message --}}
         @if ($errors->any())
             <div class="mt-4 bg-red-500/20 text-red-300 text-sm p-3 rounded-xl">
                 {{ $errors->first() }}
@@ -61,5 +55,4 @@
 
 </div>
 
-</body>
-</html>
+@endsection

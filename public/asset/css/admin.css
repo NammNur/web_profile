@@ -1,0 +1,549 @@
+/* =====================
+   GLOBAL
+===================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #e8eaec;
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.container {
+    display: flex;
+}
+
+/* =====================
+   SIDEBAR
+===================== */
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #fff;
+    border-right: 2px solid #d9d9d9;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 70px;
+}
+
+.logo h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.menu {
+    margin-top: 10px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    font-size: 15px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.2s;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #d9d9d9;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.logout {
+    margin-top: auto;
+    padding: 20px 25px;
+    color: red;
+    font-size: 15px;
+}
+
+/* =====================
+   MAIN CONTENT
+===================== */
+.main,
+.content {
+    margin-left: 230px;
+    padding: 20px;
+    width: calc(100% - 230px);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+/* =====================
+   SEARCH
+===================== */
+.search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.search input {
+    width: 450px;
+    padding: 10px 40px;
+    border-radius: 20px;
+    border: none;
+    background: #d9d9d9;
+    font-size: 15px;
+    outline: none;
+}
+
+/* =====================
+   TABLE
+===================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+th {
+    background: #f1f3f5;
+    font-weight: bold;
+}
+
+tr:hover {
+    background: #f9f9f9;
+}
+
+/* =====================
+   BADGE
+===================== */
+.badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+}
+
+.aktif { background: #28a745; }
+.nonaktif { background: #dc3545; }
+.admin { background: #1e63b7; }
+.user { background: #6c757d; }
+
+.password {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+/* =====================
+   STATS
+===================== */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.box-icon {
+    font-size: 40px;
+}
+
+.box-content h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.box-content p {
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =====================
+   TITLE BAR
+===================== */
+.title-bar {
+    width: 300px;
+    background: #1e63d3;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* =====================
+   PRODUCT GRID (FIX)
+===================== */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: flex-start; /* FIX: tidak ke tengah */
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card {
+    width: 260px;
+    height: 100px;
+    background: #fff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 15px 18px;
+    transition: 0.2s;
+}
+
+.product-card:hover {
+    transform: scale(1.03);
+}
+
+.product-card img {
+    width: 60px;
+}
+
+.product-card p {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* =====================
+   DETAIL & TEMPLATE
+===================== */
+.header-box {
+    width: 160px;
+    height: 70px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.header-box img {
+    width: 55px;
+}
+
+.detail-wrap {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.detail-text {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.edit-icon {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* TEMPLATE GRID */
+.template-title {
+    font-size: 15px;
+    margin: 10px 0 10px 20px;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 160px);
+    gap: 25px;
+    margin-left: 20px;
+}
+
+.template-box {
+    width: 160px;
+    height: 130px;
+    background: #f9eeee;
+    border-radius: 10px;
+    border: 1px solid #e5dcdc;
+}
+
+/* =====================
+   FOOTER
+===================== */
+.footer,
+.footer-line {
+    width: calc(100% - 230px);
+    height: 55px;
+    background: #1e63d3;
+    position: fixed;
+    bottom: 0;
+    left: 230px;
+    border-radius: 10px 0 0 0;
+}
+
+/* =====================
+   MODAL
+===================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: #fff;
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.modal-box h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.modal-box textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modal-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 10px;
+    background: #1e63d3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.close-btn {
+    background: red;
+}
+
+/* =====================
+   PRODUCT UPLOAD FORM
+===================== */
+
+.product-form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.upload-layout {
+    display: flex;
+    gap: 40px;
+}
+
+/* IMAGE UPLOAD */
+.upload-image {
+    width: 35%;
+}
+
+.image-box {
+    border: 2px dashed #cfd6dd;
+    border-radius: 15px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+}
+
+.image-box:hover {
+    background: #f5f7fa;
+}
+
+.image-box img {
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+.image-box p {
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.image-box span {
+    font-size: 12px;
+    color: #777;
+}
+
+/* PRODUCT INFO */
+.upload-info {
+    width: 65%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    width: 100%;
+}
+
+/* BUTTON */
+.btn-save {
+    margin-top: 10px;
+    padding: 12px;
+    width: 200px;
+    background: #1e63d3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-save:hover {
+    background: #174fb0;
+}
+
+
+
+
+/* =====================
+   PAGE HEADER
+===================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* =====================
+   CREATE BUTTON (Keren)
+===================== */
+.btn-create {
+    padding: 10px 18px;
+    background: #1e63d3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(30,99,211,0.35);
+    transition: all 0.25s ease;
+}
+
+.btn-create:hover {
+    background: #174fb0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(30,99,211,0.45);
+}
+
+/* =====================
+   PRODUCT CARD (RAPIH)
+===================== */
+.product-card {
+    width: 260px;
+    height: 110px;
+    background: #fff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 15px 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: 0.25s;
+}
+
+.product-card img {
+    width: 65px;
+}
+
+.product-card p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* hover effect */
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}

@@ -8,7 +8,7 @@
 
     <h4 class="section-title">PRODUK</h4>
 
-    <!-- SEARCH (opsional nanti kita aktifkan) -->
+    <!-- SEARCH -->
     <div class="search-wrapper">
         <input type="text" class="form-control search-input" placeholder="Search">
         <i class="bi bi-search search-icon"></i>
@@ -18,18 +18,18 @@
     <div class="category-buttons">
         @php
             $categories = [
-                'Produksi Jersey',
-                'Produksi Logam',
-                'Produksi Konveksi',
-                'Produksi Printing',
-                'Produksi Bordir'
+                'jersey'   => 'Produksi Jersey',
+                'logam'    => 'Produksi Logam',
+                'konveksi' => 'Produksi Konveksi',
+                'printing' => 'Produksi Printing',
+                'bordir'   => 'Produksi Bordir'
             ];
         @endphp
 
-        @foreach ($categories as $cat)
-            <a href="{{ route('produk.index', ['kategori' => $cat]) }}"
-               class="btn category {{ $kategoriAktif == $cat ? 'active' : '' }}">
-                {{ $cat }}
+        @foreach ($categories as $key => $label)
+            <a href="{{ route('produk.index', ['kategori' => $key]) }}"
+               class="btn category {{ $kategoriAktif == $key ? 'active' : '' }}">
+                {{ $label }}
             </a>
         @endforeach
     </div>
@@ -41,12 +41,20 @@
             @forelse ($products as $product)
                 <a href="{{ route('produk.show', $product->id_produk) }}" class="product-link">
                     <div class="seller-card">
-                        <img src="{{ asset($product->foto) }}" alt="">
-                        <p class="category">{{ $product->kategori }}</p>
+
+                        <img src="{{ $product->foto
+                            ? asset('storage/'.$product->foto)
+                            : asset('asset/img/no-image.png') }}"
+                            alt="{{ $product->nama_produk }}">
+
+                        <p class="category">{{ ucfirst($product->kategori) }}</p>
+
                         <h4 class="product-name">{{ $product->nama_produk }}</h4>
+
                         <p class="price">
-                            Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
+                            Rp {{ number_format($product->harga, 0, ',', '.') }}
                         </p>
+
                     </div>
                 </a>
             @empty
@@ -54,14 +62,12 @@
             @endforelse
 
         </div>
-
-        <div class="more-container">
-            <button class="btn-more">Lainnya</button>
-        </div>
     </section>
 
     <div class="text-center mt-4">
-        <button class="btn btn-dark rounded-pill px-4">Buat Pesanan</button>
+        <button class="btn btn-dark rounded-pill px-4">
+            Buat Pesanan
+        </button>
     </div>
 
 </div>

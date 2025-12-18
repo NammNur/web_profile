@@ -1,0 +1,147 @@
+/* ==============================
+   ADMIN ORDERS PAGE (FINAL)
+============================== */
+
+.admin-orders {
+    width: 100%;
+}
+
+/* WRAPPER */
+.admin-orders .order-wrapper {
+    padding: 25px;
+}
+
+/* TITLE */
+.admin-orders .order-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* CARD */
+.admin-orders .order-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: auto; /* ANTI BERANTAKAN DI LAYAR KECIL */
+}
+
+/* ==============================
+   TABLE (HARD FIX)
+============================== */
+
+.admin-orders table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important; /* KUNCI KOLOM */
+    background: #fff;
+}
+
+/* HEADER */
+.admin-orders thead th {
+    background: #f5f6fa;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 10px !important;
+    text-align: center;
+    white-space: nowrap;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* BODY */
+.admin-orders tbody td {
+    font-size: 14px;
+    padding: 12px 10px !important;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* ==============================
+   COLUMN ALIGNMENT (FIX)
+============================== */
+
+/* No */
+.admin-orders th:nth-child(1),
+.admin-orders td:nth-child(1) {
+    text-align: center;
+}
+
+/* Jenis Barang & Nama Barang */
+.admin-orders th:nth-child(2),
+.admin-orders td:nth-child(2),
+.admin-orders th:nth-child(3),
+.admin-orders td:nth-child(3) {
+    text-align: left;
+}
+
+/* Jumlah */
+.admin-orders th:nth-child(4),
+.admin-orders td:nth-child(4) {
+    text-align: center;
+}
+
+/* Total Harga */
+.admin-orders th:nth-child(5),
+.admin-orders td:nth-child(5) {
+    text-align: right;
+}
+
+/* Transaksi */
+.admin-orders th:nth-child(6),
+.admin-orders td:nth-child(6) {
+    text-align: center;
+}
+
+/* ==============================
+   BADGE
+============================== */
+
+.admin-orders .order-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.admin-orders .order-badge.success {
+    background: #2ecc71;
+}
+
+/* ==============================
+   HOVER ROW
+============================== */
+
+.admin-orders tbody tr:hover {
+    background: #f9fafc;
+}
+
+/* ==============================
+   PAGINATION
+============================== */
+
+.admin-orders .pagination-wrapper {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 768px) {
+    .admin-orders table {
+        font-size: 13px;
+    }
+
+    .admin-orders thead th,
+    .admin-orders tbody td {
+        padding: 10px 6px !important;
+    }
+}
