@@ -1,14 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Produk Konveksi')
+@section('title', 'Admin Manage Product Logam')
 
 @section('content')
 <div class="container">
     <div class="content">
 
-        <div class="title-bar">Data Produk Konveksi</div>
+        <div class="title-bar">Data Produk Logam</div>
 
+        <!-- TABLE WRAPPER -->
         <div class="table-wrapper">
+
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -33,17 +35,17 @@
                                 @if($p->foto)
                                     <img src="{{ asset('asset/img/' . $p->foto) }}" class="product-img">
                                 @else
-                                    -
+                                    <span class="text-muted">-</span>
                                 @endif
                             </td>
 
                             <td>{{ $p->nama_produk }}</td>
                             <td>{{ ucfirst($p->kategori) }}</td>
-                            <td>Rp {{ number_format($p->harga,0,',','.') }}</td>
+                            <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
                             <td>{{ $p->stok }}</td>
-                            <td>{{ $p->satuan }}</td>
+                            <td>{{ $p->satuan ?? '-' }}</td>
                             <td class="desc">
-                                {{ $p->deskripsi ?? '-' }}
+                                {{ Str::limit($p->deskripsi, 50, '...') }}
                             </td>
 
                             <td>
@@ -53,13 +55,15 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="empty">Data tidak tersedia</td>
+                            <td colspan="9" class="empty">
+                                Data produk logam belum tersedia
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
-        </div>
 
+        </div>
     </div>
 </div>
 @endsection

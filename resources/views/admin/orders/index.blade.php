@@ -42,7 +42,10 @@
     @foreach ($orders as $order)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>Produksi {{ ucfirst($order->produk->kategori) }}</td>
+        <td>
+    Produksi {{ ucfirst(str_replace('produksi ', '', $order->produk->kategori)) }}
+</td>
+
         <td>{{ $order->produk->nama_produk }}</td>
         <td>{{ $order->quantity }}</td>
         <td>Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>

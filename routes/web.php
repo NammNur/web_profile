@@ -132,10 +132,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     $kategoriMap = [
         'jersey'   => 'produksi jersey',
-        'printing' => 'printing',
-        'konveksi' => 'konveksi',
-        'bordir'   => 'bordir',
-        'logam'    => 'logam',
+        'printing' => 'produksi printing',
+        'konveksi' => 'produksi konveksi',
+        'bordir'   => 'produksi bordir',
+        'logam'    => 'produksi logam',
     ];
 
     abort_if(!array_key_exists($type, $views), 404);
@@ -180,3 +180,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/orders/bordir', [AdminOrderController::class, 'bordir'])
         ->name('admin.orders.bordir');
 });
+
+Route::get('/admin/produk/bordir', [AdminProductController::class, 'indexBordir'])
+    ->name('admin.produk.bordir');
