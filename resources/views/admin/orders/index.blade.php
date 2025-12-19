@@ -38,20 +38,21 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    @foreach ($orders as $order)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>Produksi {{ ucfirst($order->produk->kategori) }}</td>
-                        <td>{{ $order->produk->nama_produk }}</td>
-                        <td>{{ $order->total_qty }}</td>
-                        <td>Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
-                        <td>
-                            <span class="order-badge success">Lunas</span>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+               <tbody>
+    @foreach ($orders as $order)
+    <tr>
+        <td>{{ $loop->iteration }}</td>
+        <td>Produksi {{ ucfirst($order->produk->kategori) }}</td>
+        <td>{{ $order->produk->nama_produk }}</td>
+        <td>{{ $order->quantity }}</td>
+        <td>Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+        <td>
+            <span class="order-badge success">Lunas</span>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
+
 
             </table>
 

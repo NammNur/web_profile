@@ -21,14 +21,20 @@ class AdminOrderController extends Controller
             ->paginate(10);
     }
 
-    public function jersey()
-    {
-        $orders = $this->ordersByKategori('jersey');
-        return view('admin.orders.index', [
-            'orders' => $orders,
-            'title'  => 'Earnings Product Jersey'
-        ]);
-    }
+  public function jersey()
+{
+    $orders = Order::with('produk')
+        ->whereHas('produk', function ($q) {
+            $q->where('kategori', 'produksi jersey');
+        })
+        ->paginate(10);
+
+    return view('admin.orders.index', [
+        'title'  => 'Earnings Product Jersey',
+        'orders' => $orders
+    ]);
+}
+
 
     public function konveksi()
     {

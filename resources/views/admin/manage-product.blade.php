@@ -1,87 +1,146 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin manage Product')
+@section('title', 'Admin Manage Product')
 
 @section('content')
-    <div class="container">
-        <!-- MAIN CONTENT -->
-        <div class="content">
+<div class="container">
+    <div class="content">
 
-            <div class="title-bar">Produk Jersey</div>
+        <div class="title-bar">Data Produk Jersey</div>
 
-            <!-- HEADER ATAS -->
-            <div class="detail-wrap">
+        <!-- TABLE WRAPPER -->
+        <div class="table-wrapper">
 
-                <div class="header-box">
-                    <img src="{{ asset('asset/img/jersey.png') }}" alt="">
-                </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Foto</th>
+                        <th>Nama Produk</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Satuan</th>
+                        <th>Deskripsi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
 
-                <!-- EDIT JENIS -->
-                <div class="detail-text">
-                    <span class="edit-icon" onclick="openModal('Edit Jenis Produk')">✏️</span>
-                    <b>Jenis Produk :</b><br>
-                    1. Jersey Futsal<br>
-                    2. Jersey Basket<br>
-                    3. Jersey Voli
-                </div>
+                <tbody>
+                    @forelse ($produk as $p)
+                        <tr>
+                            <td>{{ $p->id_produk }}</td>
 
-                <!-- EDIT BAHAN -->
-                <div class="detail-text">
-                    <span class="edit-icon" onclick="openModal('Edit Bahan')">✏️</span>
-                    <b>Bahan :</b><br>
-                    1. Premium<br>
-                    2. Standart
-                </div>
-            </div>
+                            <td>
+                                @if($p->foto)
+                                    <img src="{{ asset('asset/img/' . $p->foto) }}" class="product-img">
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
 
-            <!-- EDIT TEMPLATE -->
-            <div class="template-title">
-                <span class="edit-icon" onclick="openModal('Edit Template Design')">✏️</span>
-                Template Design
-            </div>
+                            <td>{{ $p->nama_produk }}</td>
+                            <td>{{ ucfirst($p->kategori) }}</td>
+                            <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
+                            <td>{{ $p->stok }}</td>
+                            <td>{{ $p->satuan ?? '-' }}</td>
+                            <td class="desc">
+                                {{ Str::limit($p->deskripsi, 50, '...') }}
+                            </td>
 
-            <!-- TEMPLATE GRID -->
-            <div class="template-grid">
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-                <div class="template-box"></div>
-            </div>
-
-            <div class="footer"></div>
+                            <td>
+                                <button class="btn edit">Edit</button>
+                                <button class="btn delete">Hapus</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="empty">
+                                Data produk belum tersedia
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
 
         </div>
-
     </div>
+</div>
 
-    <!-- MODAL -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-box">
-            <h3 id="modalTitle">Edit</h3>
+<style>
+/* ===== TABLE STYLE ===== */
+.table-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
 
-            <textarea></textarea>
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
 
-            <button class="modal-btn">Simpan Perubahan</button>
-            <button class="modal-btn close-btn" onclick="closeModal()">Batal</button>
-        </div>
-    </div>
+.admin-table thead {
+    background: #f3f4f6;
+}
 
-    <script>
-        function openModal(title) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modal').style.display = "flex";
-        }
+.admin-table th,
+.admin-table td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e7eb;
+}
 
-        function closeModal() {
-            document.getElementById('modal').style.display = "none";
-        }
-    </script>
+.admin-table th {
+    font-weight: 600;
+    color: #374151;
+}
 
-    </body>
+.admin-table tr:hover {
+    background: #f9fafb;
+}
 
-    </html>
+.product-img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.desc {
+    max-width: 220px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn.edit {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn.delete {
+    background: #dc2626;
+    color: #fff;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+}
+</style>
+@endsection

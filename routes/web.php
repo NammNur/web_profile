@@ -9,6 +9,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminOrderController;
+use App\Models\Produk;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -120,18 +122,30 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/products/manage/{type}', function ($type) {
 
-        $views = [
-            'jersey'   => 'admin.manage-product',
-            'printing' => 'admin.manage-productPrinting',
-            'konveksi' => 'admin.manage-productKonveksi',
-            'bordir'   => 'admin.manage-productBordir',
-            'logam'    => 'admin.manage-productLogam',
-        ];
+    $views = [
+        'jersey'   => 'admin.manage-product',
+        'printing' => 'admin.manage-productPrinting',
+        'konveksi' => 'admin.manage-productKonveksi',
+        'bordir'   => 'admin.manage-productBordir',
+        'logam'    => 'admin.manage-productLogam',
+    ];
 
-        abort_if(!array_key_exists($type, $views), 404);
+    $kategoriMap = [
+        'jersey'   => 'produksi jersey',
+        'printing' => 'printing',
+        'konveksi' => 'konveksi',
+        'bordir'   => 'bordir',
+        'logam'    => 'logam',
+    ];
 
-        return view($views[$type], compact('type'));
-    })->name('admin.products.manage');
+    abort_if(!array_key_exists($type, $views), 404);
+
+    $produk = Produk::where('kategori', $kategoriMap[$type])->get();
+
+    return view($views[$type], compact('produk', 'type'));
+
+})->name('admin.products.manage');
+
 
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
