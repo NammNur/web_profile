@@ -13,7 +13,6 @@ class Order extends Model
         'user_id',
         'produk_id',
         'nama_produk',
-        'harga',
         'quantity',
         'total_price',
         'no_wa',
