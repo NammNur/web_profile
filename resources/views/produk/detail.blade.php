@@ -7,8 +7,10 @@
 
             <!-- IMAGE -->
             <div class="col-md-6">
-                <img src="{{ $product->foto ? asset('storage/' . $product->foto) : asset('asset/img/no-image.png') }}"
-                    class="img-fluid rounded" alt="{{ $product->nama_produk }}">
+                <img src="{{ $product->foto
+    ? asset('asset/img/' . $product->foto)
+    : asset('asset/img/no-image.png') }}"
+    alt="{{ $product->nama_produk }}">
             </div>
 
             <!-- INFO -->

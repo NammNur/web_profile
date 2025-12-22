@@ -32,12 +32,12 @@
             {{-- JIKA USER SUDAH LOGIN --}}
             @auth
                 <span class="user-name">
-                    {{ Auth::user()->nama }}
+                    {{ Auth::user()->name ?? Auth::user()->nama }}
                 </span>
 
-                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                <form action="{{ route('logout') }}" method="POST" class="logout-form" aria-label="Logout form">
                     @csrf
-                    <button type="submit" class="btn-logout">
+                    <button type="submit" class="btn-logout" aria-label="Logout">
                         Logout
                     </button>
                 </form>

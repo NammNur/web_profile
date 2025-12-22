@@ -42,10 +42,11 @@
                 <a href="{{ route('produk.show', $product->id_produk) }}" class="product-link">
                     <div class="seller-card">
 
-                        <img src="{{ $product->foto
-                            ? asset('storage/'.$product->foto)
-                            : asset('asset/img/no-image.png') }}"
-                            alt="{{ $product->nama_produk }}">
+                        <<img src="{{ $product->foto
+    ? asset('asset/img/' . $product->foto)
+    : asset('asset/img/no-image.png') }}"
+    alt="{{ $product->nama_produk }}">
+
 
                         <p class="category">{{ ucfirst($product->kategori) }}</p>
 
@@ -63,13 +64,6 @@
 
         </div>
     </section>
-
-    <div class="text-center mt-4">
-        <button class="btn btn-dark rounded-pill px-4">
-            Buat Pesanan
-        </button>
-    </div>
-
 </div>
 
 @endsection

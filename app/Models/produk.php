@@ -20,4 +20,13 @@ class Produk extends Model
         'deskripsi',
         'foto',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(
+            Order::class,
+            'produk_id',   // FK di tabel orders
+            'id_produk'    // PK di tabel produk
+        );
+    }
 }

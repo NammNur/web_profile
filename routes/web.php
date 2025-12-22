@@ -179,7 +179,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/orders/bordir', [AdminOrderController::class, 'bordir'])
         ->name('admin.orders.bordir');
-});
-
-Route::get('/admin/produk/bordir', [AdminProductController::class, 'indexBordir'])
-    ->name('admin.produk.bordir');
+    });
+    
+    Route::get('/admin/produk/bordir', [AdminProductController::class, 'indexBordir'])
+        ->name('admin.produk.bordir');

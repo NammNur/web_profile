@@ -12,14 +12,31 @@ class ProdukController extends Controller
      * FRONTEND (USER)
      * ===============================
      */
-
     public function index(Request $request)
     {
-        $kategoriAktif = $request->get('kategori');
+        // DEFAULT KATEGORI
+        $kategoriAktif = $request->get('kategori', 'jersey');
 
-        $products = Produk::when($kategoriAktif, function ($query) use ($kategoriAktif) {
-            $query->where('kategori', $kategoriAktif);
-        })->get();
+        $query = Produk::query();
+
+        // FILTER KATEGORI
+        if ($kategoriAktif) {
+            $query->where('kategori', 'LIKE', '%' . $kategoriAktif . '%');
+        }
+
+        // URUTAN KATEGORI
+        $query->orderByRaw("
+            CASE
+                WHEN kategori LIKE '%jersey%' THEN 1
+                WHEN kategori LIKE '%logam%' THEN 2
+                WHEN kategori LIKE '%konveksi%' THEN 3
+                WHEN kategori LIKE '%printing%' THEN 4
+                WHEN kategori LIKE '%bordir%' THEN 5
+                ELSE 6
+            END
+        ");
+
+        $products = $query->get();
 
         return view('produk.index', compact('products', 'kategoriAktif'));
     }
@@ -35,7 +52,6 @@ class ProdukController extends Controller
      * ADMIN (UPLOAD PRODUK)
      * ===============================
      */
-
     public function create()
     {
         return view('admin.create');
@@ -52,9 +68,11 @@ class ProdukController extends Controller
             'foto'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // upload foto
+        // UPLOAD FOTO KE public/asset/img
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('produk', 'public');
+            $filename = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('asset/img'), $filename);
+            $data['foto'] = $filename;
         }
 
         Produk::create($data);
