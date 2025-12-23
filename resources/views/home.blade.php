@@ -92,8 +92,9 @@
         </div>
 
         <div class="star-decor">
-            <img src="{{ asset('asset/img/bintang.png') }}" class="star-img">
-        </div>
+    <img src="{{ asset('asset/img/bintang.png') }}" class="star-img" alt="star">
+</div>
+
 
     </section>
 

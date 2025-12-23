@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminOrderController;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +44,16 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| USER PRODUK & PESANAN (LOGIN)
+| USER PROFILE & PESANAN (LOGIN)
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
+
+    // PROFILE USER
+    Route::get('/profile', [UserProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::post('/profile', [UserProfileController::class, 'update'])
+        ->name('profile.update');
 
     // KATALOG PRODUK
     Route::get('/produk', [ProdukController::class, 'index'])
@@ -116,10 +123,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     | ORDERS (SATU TABEL)
     |--------------------------------------------------------------------------
     */
-    Route::get('/admin/orders', [AdminOrderController::class, 'index'])
-    ->name('admin.orders');
+    Route::get('/orders', [AdminOrderController::class, 'index'])
+        ->name('admin.orders');
 
-    
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 

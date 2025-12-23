@@ -27,21 +27,27 @@
         </nav>
 
         <!-- AUTH SECTION -->
-        <div class="auth">
+       <div class="auth">
 
-            {{-- JIKA USER SUDAH LOGIN --}}
-            @auth
-                <span class="user-name">
-                    {{ Auth::user()->name ?? Auth::user()->nama }}
-                </span>
+    @auth
+        <span class="user-name">
+            {{ Auth::user()->name ?? Auth::user()->nama }}
+        </span>
 
-                <form action="{{ route('logout') }}" method="POST" class="logout-form" aria-label="Logout form">
-                    @csrf
-                    <button type="submit" class="btn-logout" aria-label="Logout">
-                        Logout
-                    </button>
-                </form>
-            @endauth
+        <!-- BUTTON SETTING -->
+        <a href="{{ route('profile.edit') }}" class="btn-setting" title="Edit Profile">
+            <img src="{{ asset('asset/img/setting.jpg') }}" alt="Setting">
+        </a>
+
+        <!-- LOGOUT -->
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    @endauth
+
+</div>
+
 
             {{-- JIKA BELUM LOGIN --}}
             @guest

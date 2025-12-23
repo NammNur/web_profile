@@ -39,6 +39,34 @@ body {
     gap: 10px;
 }
 
+/* ================= BUTTON SETTING ================= */
+.btn-setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;       /* LEBIH KECIL */
+    height: 28px;
+
+    padding: 0;        /* PENTING */
+    margin-left: 8px;
+
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    line-height: 0;    /* PENTING */
+}
+
+.btn-setting img {
+    width: 14px;       /* icon kecil */
+    height: 14px;
+    display: block;    /* PENTING */
+}
+
+.btn-setting:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+
 .login {
     font-size: 11px;
     color: #fff;
