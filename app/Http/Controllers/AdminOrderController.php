@@ -3,83 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Http\Request;
 
 class AdminOrderController extends Controller
 {
-    /**
-     * Mengambil pesanan berdasarkan kategori produk.
-     */
-    private function ordersByKategori($kategori)
+    public function index(Request $request)
     {
-        return Order::with('produk')
-            ->whereHas('produk', function ($q) use ($kategori) {
-                $q->where('kategori', 'produksi ' . $kategori);
+        $orders = Order::with('produk')
+            ->when($request->kategori, function ($q) use ($request) {
+                $q->whereHas('produk', function ($query) use ($request) {
+                    $query->where('kategori', 'produksi ' . $request->kategori);
+                });
             })
+            ->latest()
             ->paginate(10);
-    }
 
-    /**
-     * Menampilkan pesanan kategori Jersey
-     */
-    public function jersey()
-    {
-        $orders = $this->ordersByKategori('jersey');
-
-        return view('admin.orders.index', [
-            'title'  => 'Earnings Product Jersey',
+        return view('admin.orders', [
+            'title'  => 'Data Semua Orders',
             'orders' => $orders
         ]);
     }
 
     /**
-     * Menampilkan pesanan kategori Konveksi
+     * UPDATE STATUS ORDER
      */
-    public function konveksi()
+    public function updateStatus(Request $request, Order $order)
     {
-        $orders = $this->ordersByKategori('konveksi');
-
-        return view('admin.orders.index', [
-            'title'  => 'Earnings Product Konveksi',
-            'orders' => $orders
+        $request->validate([
+            'status' => 'required|in:pending,proses,selesai'
         ]);
-    }
 
-    /**
-     * Menampilkan pesanan kategori Printing
-     */
-    public function printing()
-    {
-        $orders = $this->ordersByKategori('printing');
-
-        return view('admin.orders.index', [
-            'title'  => 'Earnings Product Printing',
-            'orders' => $orders
+        $order->update([
+            'status' => $request->status
         ]);
-    }
 
-    /**
-     * Menampilkan pesanan kategori Logam
-     */
-    public function logam()
-    {
-        $orders = $this->ordersByKategori('logam');
-
-        return view('admin.orders.index', [
-            'title'  => 'Earnings Product Logam',
-            'orders' => $orders
-        ]);
-    }
-
-    /**
-     * Menampilkan pesanan kategori Bordir
-     */
-    public function bordir()
-    {
-        $orders = $this->ordersByKategori('bordir');
-
-        return view('admin.orders.index', [
-            'title'  => 'Earnings Product Bordir',
-            'orders' => $orders
-        ]);
+        return back()->with('success', 'Status order berhasil diubah');
     }
 }

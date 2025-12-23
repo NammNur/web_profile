@@ -32,14 +32,14 @@ class OrderController extends Controller
             'catatan'  => 'nullable|string',
         ]);
 
-        // HITUNG TOTAL HARGA
+        // TOTAL HARGA
         $totalPrice = $product->harga * $request->quantity;
 
         Order::create([
-            'user_id'     => Auth::id(),
+            'user_id'     => Auth::id(),               // 🔥 INI KUNCI NAMA PEMESAN
             'produk_id'   => $product->id_produk,
             'nama_produk' => $product->nama_produk,
-            'harga'       => $product->harga,
+            'harga_jual'  => $product->harga,          // 🔥 FIX NAMA KOLOM
             'quantity'    => $request->quantity,
             'total_price' => $totalPrice,
             'no_wa'       => $request->no_wa,
@@ -47,7 +47,7 @@ class OrderController extends Controller
             'status'      => 'pending',
         ]);
 
-        // KURANGI STOK PRODUK
+        // KURANGI STOK
         $product->decrement('stok', $request->quantity);
 
         return redirect()

@@ -1,0 +1,147 @@
+.page-title {
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+/* WRAPPER */
+.order-wrapper {
+    background: #fff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+/* PRODUCT CARD */
+.product-card {
+    background: #f9fafb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px #eee;
+}
+
+.product-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: contain;
+    background: #fff;
+    padding: 20px;
+}
+
+/* INFO PRODUK */
+.product-info {
+    padding: 20px;
+    color: #111827; /* FIX WARNA TEKS */
+}
+
+/* CATEGORY */
+.product-category {
+    display: inline-block;
+    background: #e5e7eb;
+    color: #111827;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: .5px;
+}
+
+/* TITLE */
+.product-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #111827;
+}
+
+/* PRICE */
+.product-price {
+    font-weight: 700;
+    color: #16a34a;
+    font-size: 18px;
+}
+
+/* STOCK */
+.product-stock {
+    color: #374151;
+    font-size: 14px;
+}
+
+.product-stock .available {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.product-stock .empty {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+/* FORM CARD */
+.form-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: inset 0 0 0 1px #eee;
+}
+
+.form-title {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+/* TOTAL */
+.total-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0fdf4;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #166534;
+    margin-bottom: 18px;
+}
+
+/* BUTTON */
+.action-btn {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-order {
+    flex: 1;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    border-radius: 999px;
+    padding: 12px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    transition: all .3s ease;
+}
+
+.btn-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(34,197,94,.45);
+}
+
+.btn-back {
+    flex: 1;
+    border-radius: 999px;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    color: #374151;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.btn-back:hover {
+    background: #f3f4f6;
+}

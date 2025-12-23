@@ -1,25 +1,122 @@
-/* ==============================
-   SIDEBAR DROPDOWN ORDERS
-============================== */
-
-.has-submenu .submenu {
-    display: none;
-    padding-left: 20px;
+.admin-orders {
+    padding: 25px;
+    background: #f4f6f8;
+    min-height: 100vh;
 }
 
-.has-submenu.open .submenu {
-    display: block;
+.page-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.menu-toggle {
+.filter-bar {
+    margin-bottom: 15px;
+}
+
+.filter-bar select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.menu-toggle .arrow {
-    float: right;
-    transition: transform 0.3s ease;
+.order-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    overflow-x: auto;
 }
 
-.has-submenu.open .arrow {
-    transform: rotate(180deg);
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.order-table thead {
+    background: #f1f3f5;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eaeaea;
+    vertical-align: middle;
+}
+
+.order-table th {
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ALIGNMENT */
+.center { text-align: center; }
+.right { text-align: right; }
+
+/* COLUMN WIDTH */
+.col-no { width: 50px; }
+.col-produk { width: 220px; }
+.col-kategori { width: 140px; }
+.col-jumlah { width: 80px; }
+.col-total { width: 140px; }
+.col-status { width: 120px; }
+.col-catatan { 
+    width: 220px; 
+    text-align: left; 
+    word-break: break-word; 
+}
+.col-aksi { width: 160px; }
+.col-tanggal { width: 140px; }
+
+/* STATUS BADGE */
+.status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status.pending { background: #fff3bf; color: #f08c00; }
+.status.proses { background: #dbeafe; color: #2563eb; }
+.status.selesai { background: #d3f9d8; color: #2f9e44; }
+
+/* ACTION BUTTON */
+.action-col {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.status-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,.12);
+}
+
+.status-btn.proses {
+    background: linear-gradient(135deg, #228be6, #4dabf7);
+    color: #fff;
+}
+.status-btn.proses:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(34,139,230,.35);
+}
+
+.status-btn.selesai {
+    background: linear-gradient(135deg, #2f9e44, #69db7c);
+    color: #fff;
+}
+.status-btn.selesai:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(47,158,68,.35);
 }

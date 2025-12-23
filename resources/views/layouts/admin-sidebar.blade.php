@@ -24,23 +24,13 @@
             👥 Customers
         </a>
 
-        {{-- ORDERS --}}
-        <div class="menu-item has-submenu">
+        {{-- ORDERS (SATU HALAMAN) --}}
+        <a href="{{ route('admin.orders') }}"
+   class="{{ request()->routeIs('admin.orders') ? 'active' : '' }}">
+   🛒 Orders
+</a>
 
-            <a href="#" class="menu-toggle">
-                🛒 Orders
-                <span class="arrow">▾</span>
-            </a>
 
-            <ul class="submenu">
-                <li><a href="{{ route('admin.orders.jersey') }}">Product Jersey</a></li>
-                <li><a href="{{ route('admin.orders.konveksi') }}">Product Konveksi</a></li>
-                <li><a href="{{ route('admin.orders.printing') }}">Product Printing</a></li>
-                <li><a href="{{ route('admin.orders.logam') }}">Product Logam</a></li>
-                <li><a href="{{ route('admin.orders.bordir') }}">Product Bordir</a></li>
-            </ul>
-
-        </div>
     </div>
 
     {{-- LOGOUT --}}
@@ -53,13 +43,3 @@
         </form>
     </div>
 </div>
-
-{{-- JS TOGGLE (TANPA NGUBAH WARNA) --}}
-<script>
-document.querySelectorAll('.menu-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function (e) {
-        e.preventDefault();
-        this.parentElement.classList.toggle('open');
-    });
-});
-</script>
