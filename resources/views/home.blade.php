@@ -54,7 +54,7 @@
         <div class="product-card">
             <div class="product-left">
                 <h4>Produksi Jersey</h4>
-                <button>Lainnya</button>
+                <button type="button" class="shop-btn" data-kategori="jersey">Lainnya</button>
             </div>
             <img src="{{ asset('asset/img/jersey.png') }}" class="product-img">
         </div>
@@ -62,7 +62,7 @@
         <div class="product-card">
             <div class="product-left">
                 <h4>Produksi Logam</h4>
-                <button>Lainnya</button>
+                <button type="button" class="shop-btn" data-kategori="logam">Lainnya</button>
             </div>
             <img src="{{ asset('asset/img/logam.png') }}" class="product-img">
         </div>
@@ -70,7 +70,7 @@
         <div class="product-card">
             <div class="product-left">
                 <h4>Produksi Konveksi</h4>
-                <button>Lainnya</button>
+                <button type="button" class="shop-btn" data-kategori="konveksi">Lainnya</button>
             </div>
             <img src="{{ asset('asset/img/jaket.png') }}" class="product-img">
         </div>
@@ -78,7 +78,7 @@
         <div class="product-card">
             <div class="product-left">
                 <h4>Produksi Printing</h4>
-                <button>Lainnya</button>
+                <button type="button" class="shop-btn" data-kategori="printing">Lainnya</button>
             </div>
             <img src="{{ asset('asset/img/printing.png') }}" class="product-img">
         </div>
@@ -86,7 +86,7 @@
         <div class="product-card single">
             <div class="product-left">
                 <h4>Produksi Bordir</h4>
-                <button>Lainnya</button>
+                <button type="button" class="shop-btn" data-kategori="bordir">Lainnya</button>
             </div>
             <img src="{{ asset('asset/img/bordir.png') }}" class="product-img">
         </div>
@@ -127,7 +127,10 @@
         </div>
 
         <div class="more-container">
-            <button class="btn-more">Lainnya</button>
+            <button class="btn-more" data-url="{{ route('produk.index') }}">
+                Lainnya
+            </button>
+
         </div>
     </section>
 
@@ -143,11 +146,13 @@
                     Kuningan, Jawa Barat 45574
                 </p>
 
-                <a href="#" class="about-btn">Tentang Perusahaan</a>
+                <a href="{{ route('about') }}" class="about-btn">Tentang Perusahaan</a>
             </div>
 
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.518684382646!2d108.58210397591372!3d-7.001424494983134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f12456a96120b%3A0x17d1837bb9c525ea!2sCV.%20SKL%20ANDI%20JAYA!5e0!3m2!1sid!2sid!4v1733820000000" width="100%" height="100%"
-                style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.518684382646!2d108.58210397591372!3d-7.001424494983134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f12456a96120b%3A0x17d1837bb9c525ea!2sCV.%20SKL%20ANDI%20JAYA!5e0!3m2!1sid!2sid!4v1733820000000"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
 
 

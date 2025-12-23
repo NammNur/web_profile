@@ -4,12 +4,14 @@ console.log("Jersey Store Loaded!");
 // Menunggu hingga HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* =========================
+       INTERAKSI PRODUCT CARD
+    ========================== */
     const cards = document.querySelectorAll(".product-card");
 
-    // Tambah interaksi hover & click untuk setiap card
     cards.forEach(card => {
 
-        // Animasi hover (membesarkan sedikit)
+        // Hover effect
         card.addEventListener("mouseenter", () => {
             card.style.transform = "scale(1.03)";
             card.style.transition = "0.2s ease";
@@ -21,27 +23,52 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.boxShadow = "none";
         });
 
-        // Event klik pada card
-        card.addEventListener("click", () => {
+        // Klik card (hindari klik button di dalamnya)
+        card.addEventListener("click", (e) => {
+            if (e.target.closest("button")) return;
 
-            // Ambil judul produk (teks pertama dari card)
-            const title = card.querySelector("h4").innerText;
+            const titleEl = card.querySelector("h4");
+            if (!titleEl) return;
 
+            const title = titleEl.innerText;
             alert("Kamu memilih: " + title);
 
-            // Redirect ke halaman detail (opsional)
-            // Bisa kamu ubah sesuai kebutuhan Laravel
-            // window.location.href = "/produk/" + title.replace(/\s+/g, "-").toLowerCase();
+            // contoh redirect jika mau
+            // window.location.href = "/produk";
         });
-
     });
 
-    // Tombol "Shop Now"
-    const shopBtn = document.querySelector(".shop-btn");
-    if (shopBtn) {
-        shopBtn.addEventListener("click", () => {
-            alert("Menuju katalog produk...");
-            // window.location.href = "/katalog";
+
+    /* =========================
+       BUTTON SHOP (PER KATEGORI)
+    ========================== */
+    const shopBtns = document.querySelectorAll(".shop-btn");
+
+    shopBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation(); // hentikan event card
+
+            const kategori = btn.dataset.kategori;
+            if (!kategori) return;
+
+            window.location.href = `/produk?kategori=${kategori}`;
+        });
+    });
+
+
+    /* =========================
+       BUTTON MORE (SIMPLE REDIRECT)
+    ========================== */
+    const btnMore = document.querySelector(".btn-more");
+
+    if (btnMore) {
+        btnMore.addEventListener("click", (e) => {
+            e.stopPropagation(); // supaya tidak ikut klik card
+
+            const url = btnMore.dataset.url;
+            if (!url) return;
+
+            window.location.href = url;
         });
     }
 
