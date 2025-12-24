@@ -10,6 +10,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\AdminPengirimanController; // ⬅️ TAMBAH INI
 
 /*
 |--------------------------------------------------------------------------
@@ -44,30 +45,30 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| USER PROFILE & PESANAN (LOGIN)
+| USER PROFILE & PESANAN
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
 
-    // PROFILE USER
-    Route::get('/profile', [UserProfileController::class, 'edit'])
-        ->name('profile.edit');
-    Route::post('/profile', [UserProfileController::class, 'update'])
-        ->name('profile.update');
+    Route::get('/profile', [UserProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
 
-    // KATALOG PRODUK
-    Route::get('/produk', [ProdukController::class, 'index'])
-        ->name('produk.index');
+    Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 
-    Route::get('/produk/{id}', [ProdukController::class, 'show'])
-        ->name('produk.show');
-
-    // BUAT PESANAN
+    // PESAN
     Route::get('/produk/{id}/pesan', [OrderController::class, 'create'])
         ->name('produk.pesan');
 
     Route::post('/produk/{id}/pesan', [OrderController::class, 'store'])
         ->name('produk.pesan.store');
+
+    // PEMBAYARAN
+    Route::get('/produk/pembayaran/{id}', [OrderController::class, 'pembayaran'])
+        ->name('pembayaran.show');
+
+    Route::post('/produk/pembayaran/{id}', [OrderController::class, 'pembayaranStore'])
+        ->name('pembayaran.store');
 });
 
 /*
@@ -76,44 +77,30 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->middleware('guest')->group(function () {
-    Route::get('/login', [AdminAuthController::class, 'showLogin'])
-        ->name('admin.login');
+    Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
-    Route::post('/login', [AdminAuthController::class, 'login'])
-        ->name('admin.login.post');
-
-    Route::get('/register', [AdminAuthController::class, 'showRegister'])
-        ->name('admin.register');
-
-    Route::post('/register', [AdminAuthController::class, 'register'])
-        ->name('admin.register.post');
+    Route::get('/register', [AdminAuthController::class, 'showRegister'])->name('admin.register');
+    Route::post('/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
 });
-
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN PANEL (AUTH + ADMIN)
+| ADMIN PANEL
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
-    // DASHBOARD
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');
 
-    // CUSTOMER
     Route::get('/customers', [CustomerController::class, 'index'])
         ->name('admin.customers');
 
-    /*
-    |--------------------------------------------------------------------------
-    | PRODUCTS
-    |--------------------------------------------------------------------------
-    */
+    // PRODUCTS
     Route::get('/products', [ProdukController::class, 'indexAdmin'])
         ->name('admin.products');
 
-    // 🔥 ROUTE MANAGE PER KATEGORI (INI YANG KURANG TADI)
     Route::get('/products/manage/{type}', [ProdukController::class, 'manage'])
         ->name('admin.products.manage');
 
@@ -123,23 +110,25 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/products', [ProdukController::class, 'store'])
         ->name('admin.products.store');
 
-    /*
-    |--------------------------------------------------------------------------
-    | ORDERS
-    |--------------------------------------------------------------------------
-    */
+    // ORDERS
     Route::get('/orders', [AdminOrderController::class, 'index'])
         ->name('admin.orders');
 
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 
-    /*
-    |--------------------------------------------------------------------------
-    | LOGOUT ADMIN
-    |--------------------------------------------------------------------------
-    */
+    // 📦 DATA PENGIRIMAN (BARU)
+    Route::get('/pengiriman', [AdminPengirimanController::class, 'index'])
+        ->name('admin.pengiriman');
+
+    // LOGOUT ADMIN
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
-});
 
+        Route::get('/admin/orders/{id}/resi', [AdminOrderController::class, 'resiForm'])
+    ->name('admin.orders.resiForm');
+
+Route::patch('/admin/orders/{id}/resi', [AdminOrderController::class, 'storeResi'])
+    ->name('admin.orders.storeResi');
+
+});

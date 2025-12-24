@@ -18,12 +18,12 @@ class AdminProductController extends Controller
         return view('admin.manage-product', compact('products', 'produk'));
     }
 
-public function indexByType($type)
-{
-    $produk = Produk::where('kategori', 'produksi ' . $type)->get();
+    public function indexByType($type)
+    {
+        $produk = Produk::where('kategori', 'produksi ' . $type)->get();
 
-    return view('admin.manage-productKonveksi', compact('produk', 'type'));
-}
+        return view('admin.manage-productKonveksi', compact('produk', 'type'));
+    }
 
 
 
@@ -93,23 +93,22 @@ public function indexByType($type)
     }
 
     public function indexBordir()
-{
-    $produk = Produk::where('kategori', 'produksi bordir')->get();
+    {
+        $produk = Produk::where('kategori', 'produksi bordir')->get();
 
-    return view('admin.manage-productBordir', compact('produk'));
-}
+        return view('admin.manage-productBordir', compact('produk'));
+    }
 
-public function indexPrinting()
-{
-    $produk = Produk::where('kategori', 'produksi printing')->get();
+    public function indexPrinting()
+    {
+        $produk = Produk::where('kategori', 'produksi printing')->get();
 
-    return view('admin.manage-productPrinting', compact('produk'));
-}
-public function indexLogam()
-{
-    $produk = Produk::where('kategori', 'produksi logam')->get();
+        return view('admin.manage-productPrinting', compact('produk'));
+    }
+    public function indexLogam()
+    {
+        $produk = Produk::where('kategori', 'produksi logam')->get();
 
-    return view('admin.manage-productLogam', compact('produk'));
-}
-
+        return view('admin.manage-productLogam', compact('produk'));
+    }
 }

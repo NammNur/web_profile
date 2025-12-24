@@ -9,16 +9,23 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'produk_id',
-        'nama_produk',
-        'quantity',
-        'total_price',
-        'no_wa',
-        'catatan',
-        'status',
-    ];
+    protected $table = 'orders';
+    // ❌ JANGAN pakai primaryKey custom
+    // Laravel otomatis pakai `id`
+
+   protected $fillable = [
+    'user_id',
+    'produk_id',
+    'nama_produk',
+    'quantity',
+    'total_price',
+    'no_wa',
+    'alamat',
+    'catatan',
+    'status',
+    'metode_pembayaran',
+    'resi', // ✅ TAMBAHKAN
+];
 
     // RELASI KE PRODUK
     public function produk()

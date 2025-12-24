@@ -39,4 +39,27 @@ class AdminOrderController extends Controller
 
         return back()->with('success', 'Status order berhasil diubah');
     }
+
+    public function resiForm($id)
+{
+    $order = Order::with('user')->findOrFail($id);
+
+    return view('admin.orders-resi', compact('order'));
+}
+
+public function storeResi(Request $request, $id)
+{
+    $request->validate([
+        'resi' => 'required|string|max:100'
+    ]);
+
+    $order = Order::findOrFail($id);
+    $order->resi = $request->resi;
+    $order->status = 'proses';
+    $order->save();
+
+    return redirect()->route('admin.orders')
+        ->with('success', 'Resi berhasil disimpan & order diproses');
+}
+
 }

@@ -19,9 +19,11 @@ class ProdukController extends Controller
         $query = Produk::query();
 
         if ($kategoriAktif) {
+            // AMAN untuk: jersey / produksi jersey
             $query->where('kategori', 'LIKE', '%' . $kategoriAktif . '%');
         }
 
+        // Urutan kategori
         $query->orderByRaw("
             CASE
                 WHEN kategori LIKE '%jersey%' THEN 1
@@ -50,48 +52,44 @@ class ProdukController extends Controller
      * ===============================
      */
 
-    // HALAMAN GRID PRODUK ADMIN
+    // DASHBOARD PRODUK ADMIN
     public function indexAdmin()
     {
-        return view('admin.products');
+        $products = Produk::orderBy('created_at', 'desc')->get();
+        return view('admin.products', compact('products'));
     }
 
-  public function manage($type)
-{
-    // Mapping type ke keyword database
-    $mapKategori = [
-        'jersey'   => 'produksi jersey',
-        'konveksi' => 'produksi konveksi',
-        'bordir'   => 'produksi bordir',
-        'printing' => 'produksi printing',
-        'logam'    => 'produksi logam',
-    ];
+    // KELOLA PRODUK PER KATEGORI
+    public function manage($type)
+    {
+        // Validasi kategori yang boleh
+        $allowed = ['jersey', 'konveksi', 'bordir', 'printing', 'logam'];
 
-    if (!array_key_exists($type, $mapKategori)) {
-        abort(404);
+        if (!in_array($type, $allowed)) {
+            abort(404);
+        }
+
+        // AMBIL SEMUA YANG MENGANDUNG KATA KUNCI
+        // => jersey & produksi jersey
+        $produk = Produk::where('kategori', 'LIKE', '%' . $type . '%')->get();
+
+        switch ($type) {
+            case 'jersey':
+                return view('admin.manage-product', compact('produk'));
+
+            case 'konveksi':
+                return view('admin.manage-productKonveksi', compact('produk'));
+
+            case 'bordir':
+                return view('admin.manage-productBordir', compact('produk'));
+
+            case 'printing':
+                return view('admin.manage-productPrinting', compact('produk'));
+
+            case 'logam':
+                return view('admin.manage-productLogam', compact('produk'));
+        }
     }
-
-    // Ambil data sesuai kategori database
-    $produk = Produk::where('kategori', $mapKategori[$type])->get();
-
-    switch ($type) {
-        case 'jersey':
-            return view('admin.manage-product', compact('produk'));
-
-        case 'bordir':
-            return view('admin.manage-productBordir', compact('produk'));
-
-        case 'konveksi':
-            return view('admin.manage-productKonveksi', compact('produk'));
-
-        case 'printing':
-            return view('admin.manage-productPrinting', compact('produk'));
-
-        case 'logam':
-            return view('admin.manage-productLogam', compact('produk'));
-    }
-}
-
 
     // FORM CREATE PRODUK
     public function create()
@@ -110,6 +108,12 @@ class ProdukController extends Controller
             'deskripsi'   => 'nullable|string',
             'foto'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        // 🔥 PAKSA FORMAT KATEGORI KONSISTEN
+        // jersey => produksi jersey
+        if (!str_contains($data['kategori'], 'produksi')) {
+            $data['kategori'] = 'produksi ' . strtolower($data['kategori']);
+        }
 
         if ($request->hasFile('foto')) {
             $filename = time() . '.' . $request->foto->extension();
