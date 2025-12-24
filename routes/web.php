@@ -89,6 +89,7 @@ Route::prefix('admin')->middleware('guest')->group(function () {
         ->name('admin.register.post');
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | ADMIN PANEL (AUTH + ADMIN)
@@ -112,6 +113,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/products', [ProdukController::class, 'indexAdmin'])
         ->name('admin.products');
 
+    // 🔥 ROUTE MANAGE PER KATEGORI (INI YANG KURANG TADI)
+    Route::get('/products/manage/{type}', [ProdukController::class, 'manage'])
+        ->name('admin.products.manage');
+
     Route::get('/products/create', [ProdukController::class, 'create'])
         ->name('admin.products.create');
 
@@ -120,7 +125,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | ORDERS (SATU TABEL)
+    | ORDERS
     |--------------------------------------------------------------------------
     */
     Route::get('/orders', [AdminOrderController::class, 'index'])
@@ -137,3 +142,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
 });
+

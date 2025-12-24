@@ -14,17 +14,14 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
-        // DEFAULT KATEGORI
         $kategoriAktif = $request->get('kategori', 'jersey');
 
         $query = Produk::query();
 
-        // FILTER KATEGORI
         if ($kategoriAktif) {
             $query->where('kategori', 'LIKE', '%' . $kategoriAktif . '%');
         }
 
-        // URUTAN KATEGORI
         $query->orderByRaw("
             CASE
                 WHEN kategori LIKE '%jersey%' THEN 1
@@ -49,14 +46,60 @@ class ProdukController extends Controller
 
     /**
      * ===============================
-     * ADMIN (UPLOAD PRODUK)
+     * ADMIN
      * ===============================
      */
+
+    // HALAMAN GRID PRODUK ADMIN
+    public function indexAdmin()
+    {
+        return view('admin.products');
+    }
+
+  public function manage($type)
+{
+    // Mapping type ke keyword database
+    $mapKategori = [
+        'jersey'   => 'produksi jersey',
+        'konveksi' => 'produksi konveksi',
+        'bordir'   => 'produksi bordir',
+        'printing' => 'produksi printing',
+        'logam'    => 'produksi logam',
+    ];
+
+    if (!array_key_exists($type, $mapKategori)) {
+        abort(404);
+    }
+
+    // Ambil data sesuai kategori database
+    $produk = Produk::where('kategori', $mapKategori[$type])->get();
+
+    switch ($type) {
+        case 'jersey':
+            return view('admin.manage-product', compact('produk'));
+
+        case 'bordir':
+            return view('admin.manage-productBordir', compact('produk'));
+
+        case 'konveksi':
+            return view('admin.manage-productKonveksi', compact('produk'));
+
+        case 'printing':
+            return view('admin.manage-productPrinting', compact('produk'));
+
+        case 'logam':
+            return view('admin.manage-productLogam', compact('produk'));
+    }
+}
+
+
+    // FORM CREATE PRODUK
     public function create()
     {
         return view('admin.create');
     }
 
+    // SIMPAN PRODUK
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -68,7 +111,6 @@ class ProdukController extends Controller
             'foto'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // UPLOAD FOTO KE public/asset/img
         if ($request->hasFile('foto')) {
             $filename = time() . '.' . $request->foto->extension();
             $request->foto->move(public_path('asset/img'), $filename);
