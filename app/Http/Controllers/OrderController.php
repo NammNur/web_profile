@@ -10,17 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     /**
+     * ===============================
      * HALAMAN FORM PESANAN
+     * ===============================
      */
     public function create($id)
     {
         $product = Produk::where('id_produk', $id)->firstOrFail();
-
         return view('produk.pesan', compact('product'));
     }
 
     /**
-     * SIMPAN PESANAN
+     * ===============================
+     * SIMPAN PESANAN (LOGIC TIDAK DIUBAH)
+     * ===============================
      */
     public function store(Request $request, $id)
     {
@@ -32,17 +35,18 @@ class OrderController extends Controller
             'catatan'  => 'nullable|string',
         ]);
 
-        // TOTAL HARGA
         $totalPrice = $product->harga * $request->quantity;
 
-        Order::create([
-            'user_id'     => Auth::id(),               // 🔥 INI KUNCI NAMA PEMESAN
+        // 🔥 SIMPAN KE VARIABEL
+        $order = Order::create([
+            'user_id'     => Auth::id(),
             'produk_id'   => $product->id_produk,
             'nama_produk' => $product->nama_produk,
-            'harga_jual'  => $product->harga,          // 🔥 FIX NAMA KOLOM
+            'harga_jual'  => $product->harga,
             'quantity'    => $request->quantity,
             'total_price' => $totalPrice,
             'no_wa'       => $request->no_wa,
+            'alamat'       => $request->alamat,
             'catatan'     => $request->catatan,
             'status'      => 'pending',
         ]);
@@ -50,8 +54,50 @@ class OrderController extends Controller
         // KURANGI STOK
         $product->decrement('stok', $request->quantity);
 
+        // 🔥 ARAHKAN KE PEMBAYARAN
         return redirect()
-            ->route('produk.show', $product->id_produk)
-            ->with('success', 'Pesanan berhasil dibuat!');
+            ->route('pembayaran.show', $order->id_order)
+            ->with('success', 'Pesanan berhasil dibuat, silakan lakukan pembayaran.');
+    }
+
+    /**
+     * ===============================
+     * HALAMAN PEMBAYARAN
+     * ===============================
+     */
+    public function pembayaran($id)
+    {
+        $order = Order::with('produk')
+            ->where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        return view('produk.pembayaran', compact('order'));
+    }
+
+
+    /**
+     * ===============================
+     * SIMPAN METODE PEMBAYARAN
+     * ===============================
+     */
+    public function pembayaranStore(Request $request, $id)
+    {
+        $request->validate([
+            'metode' => 'required|string',
+        ]);
+
+        $order = Order::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        $order->update([
+            'metode_pembayaran' => $request->metode,
+            'status' => 'menunggu_verifikasi',
+        ]);
+
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Pembayaran berhasil dikonfirmasi');
     }
 }

@@ -81,4 +81,15 @@ class ProdukController extends Controller
             ->route('admin.products')
             ->with('success', 'Produk berhasil diupload');
     }
+    /**
+     * ===============================
+     * ADMIN (LIST PRODUK)
+     * ===============================
+     */
+    public function indexAdmin()
+    {
+        $products = Produk::orderBy('created_at', 'desc')->get();
+        return view('admin.products', compact('products'));
+    }
+    
 }

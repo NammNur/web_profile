@@ -68,6 +68,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/produk/{id}/pesan', [OrderController::class, 'store'])
         ->name('produk.pesan.store');
+    
+    // HALAMAN PEMBAYARAN
+    Route::get('/produk/pembayaran/{id}', [OrderController::class, 'pembayaran'])
+        ->name('pembayaran.show');
+
+    Route::post('/produk/pembayaran/{id}', [OrderController::class, 'pembayaranStore'])
+        ->name('pembayaran.store');
 });
 
 /*
@@ -88,6 +95,23 @@ Route::prefix('admin')->middleware('guest')->group(function () {
     Route::post('/register', [AdminAuthController::class, 'register'])
         ->name('admin.register.post');
 });
+
+Route::get('/admin/products/manage/{type}', function ($type) {
+    switch ($type) {
+        case 'jersey':
+            return view('admin.manage-product', compact('type'));
+        case 'printing':
+            return view('admin.manage-productPrinting', compact('type'));
+        case 'konveksi':
+            return view('admin.manage-productKonveksi', compact('type'));
+        case 'bordir':
+            return view('admin.manage-productBordir', compact('type'));
+        case 'logam':
+            return view('admin.manage-productLogam', compact('type'));
+        default:
+            abort(404);
+    }
+})->name('admin.products.manage');
 
 /*
 |--------------------------------------------------------------------------
