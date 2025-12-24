@@ -120,3 +120,19 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(47,158,68,.35);
 }
+
+.btn-bukti {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-bukti:hover {
+    background: #1d4ed8;
+}

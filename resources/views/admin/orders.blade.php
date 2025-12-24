@@ -63,19 +63,18 @@
                     </td>
 
                     <td>{{ $o->catatan ?? '-' }}</td>
+<td class="center">
+    @if ($o->bukti_pembayaran)
+        <a href="{{ asset('storage/'.$o->bukti_pembayaran) }}"
+           target="_blank"
+           class="btn-bukti">
+            Lihat Bukti
+        </a>
+    @else
+        <span class="text-muted">Belum ada</span>
+    @endif
+</td>
 
-                    {{-- BUKTI --}}
-                    <td class="center">
-                        @if ($o->bukti_pembayaran)
-                            <a href="{{ asset('storage/'.$o->bukti_pembayaran) }}" target="_blank">
-                                <img src="{{ asset('storage/'.$o->bukti_pembayaran) }}"
-                                     width="70"
-                                     style="cursor:pointer;border-radius:6px">
-                            </a>
-                        @else
-                            <span class="text-muted">Belum ada</span>
-                        @endif
-                    </td>
 
                    <td class="center aksi-col">
     @if ($o->status === 'pending')
