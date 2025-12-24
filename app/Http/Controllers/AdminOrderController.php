@@ -27,18 +27,19 @@ class AdminOrderController extends Controller
     /**
      * UPDATE STATUS ORDER
      */
-    public function updateStatus(Request $request, Order $order)
-    {
-        $request->validate([
-            'status' => 'required|in:pending,proses,selesai'
-        ]);
+   public function updateStatus(Request $request, Order $order)
+{
+    $request->validate([
+        'status' => 'required|in:pending,proses,selesai'
+    ]);
 
-        $order->update([
-            'status' => $request->status
-        ]);
+    $order->update([
+        'status' => $request->status
+    ]);
 
-        return back()->with('success', 'Status order berhasil diubah');
-    }
+    return back()->with('success', 'Status berhasil diubah');
+}
+
 
     public function resiForm($id)
 {

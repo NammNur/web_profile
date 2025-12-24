@@ -10,30 +10,27 @@ class Order extends Model
     use HasFactory;
 
     protected $table = 'orders';
-    // ❌ JANGAN pakai primaryKey custom
-    // Laravel otomatis pakai `id`
 
-   protected $fillable = [
-    'user_id',
-    'produk_id',
-    'nama_produk',
-    'quantity',
-    'total_price',
-    'no_wa',
-    'alamat',
-    'catatan',
-    'status',
-    'metode_pembayaran',
-    'resi', // ✅ TAMBAHKAN
-];
+    protected $fillable = [
+        'user_id',
+        'produk_id',
+        'nama_produk',
+        'quantity',
+        'total_price',
+        'no_wa',
+        'alamat',
+        'catatan',
+        'bukti_pembayaran',
+        'status',
+        'metode_pembayaran',
+        'resi',
+    ];
 
-    // RELASI KE PRODUK
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id', 'id_produk');
     }
 
-    // RELASI KE USER
     public function user()
     {
         return $this->belongsTo(User::class);

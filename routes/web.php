@@ -8,9 +8,10 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\AdminPengirimanController; // ⬅️ TAMBAH INI
+use App\Http\Controllers\AdminPengirimanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,11 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/produk/{id}/pesan', [OrderController::class, 'store'])
         ->name('produk.pesan.store');
 
-    // PEMBAYARAN
-    Route::get('/produk/pembayaran/{id}', [OrderController::class, 'pembayaran'])
+    // ✅ PEMBAYARAN (FIX TOTAL)
+    Route::get('/produk/pembayaran/{id}', [PaymentController::class, 'index'])
         ->name('pembayaran.show');
 
-    Route::post('/produk/pembayaran/{id}', [OrderController::class, 'pembayaranStore'])
+    Route::post('/produk/pembayaran/{id}', [PaymentController::class, 'store'])
         ->name('pembayaran.store');
 });
 
@@ -117,18 +118,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 
-    // 📦 DATA PENGIRIMAN (BARU)
+    // PENGIRIMAN
     Route::get('/pengiriman', [AdminPengirimanController::class, 'index'])
         ->name('admin.pengiriman');
 
-    // LOGOUT ADMIN
+    Route::get('/admin/orders/{id}/resi', [AdminOrderController::class, 'resiForm'])
+        ->name('admin.orders.resiForm');
+
+    Route::patch('/admin/orders/{id}/resi', [AdminOrderController::class, 'storeResi'])
+        ->name('admin.orders.storeResi');
+
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
-
-        Route::get('/admin/orders/{id}/resi', [AdminOrderController::class, 'resiForm'])
-    ->name('admin.orders.resiForm');
-
-Route::patch('/admin/orders/{id}/resi', [AdminOrderController::class, 'storeResi'])
-    ->name('admin.orders.storeResi');
-
 });

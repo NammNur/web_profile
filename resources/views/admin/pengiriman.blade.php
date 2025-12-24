@@ -23,6 +23,7 @@
                     <th>Status</th>
                     <th>Pembayaran</th>
                     <th>Resi</th>
+                    <th>Aksi</th>
                     <th>Tanggal</th>
                 </tr>
             </thead>
@@ -33,9 +34,7 @@
                     <td class="center">{{ $loop->iteration }}</td>
 
                     {{-- NAMA PEMESAN --}}
-                    <td>
-                        {{ $o->user->nama ?? 'Tidak diketahui' }}
-                    </td>
+                    <td>{{ $o->user->nama ?? 'Tidak diketahui' }}</td>
 
                     <td>{{ $o->nama_produk }}</td>
                     <td>{{ $o->no_wa }}</td>
@@ -47,12 +46,14 @@
                         Rp {{ number_format($o->total_price, 0, ',', '.') }}
                     </td>
 
+                    {{-- STATUS --}}
                     <td class="center">
                         <span class="status {{ $o->status }}">
                             {{ ucfirst($o->status) }}
                         </span>
                     </td>
 
+                    {{-- PEMBAYARAN --}}
                     <td class="center">
                         {{ strtoupper($o->metode_pembayaran ?? '-') }}
                     </td>
@@ -62,13 +63,37 @@
                         {{ $o->resi ?? '-' }}
                     </td>
 
+                    {{-- AKSI --}}
+                    <td class="center aksi-col">
+
+                        {{-- EDIT / INPUT RESI --}}
+                        <a href="{{ route('admin.orders.resiForm', $o->id) }}"
+                           class="status-btn proses">
+                           Edit
+                        </a>
+
+                        {{-- SELESAI --}}
+                        @if ($o->status !== 'selesai')
+                        <form method="POST"
+                              action="{{ route('admin.orders.updateStatus', $o->id) }}"
+                              style="display:inline-block;">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" name="status" value="selesai">
+                            <button class="status-btn selesai">
+                                Selesai
+                            </button>
+                        </form>
+                        @endif
+                    </td>
+
                     <td class="center">
                         {{ $o->created_at->format('d M Y') }}
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="11" class="center">
+                    <td colspan="12" class="center">
                         ❌ Belum ada data pengiriman
                     </td>
                 </tr>

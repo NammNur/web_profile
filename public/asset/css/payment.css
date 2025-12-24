@@ -1,51 +1,108 @@
+/* GLOBAL */
 .page-title {
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-/* CARD PRODUK */
-.payment-product {
+.d-none {
+    display: none !important;
+}
+
+/* =====================
+   CARD PRODUK (ANTI BUREM)
+===================== */
+.payment-product-card {
     display: flex;
-    gap: 20px;
-    border: 3px solid #eab308;
-    border-radius: 22px;
-    padding: 20px;
+    gap: 16px;
+    border: 2px solid #eab308;
+    border-radius: 18px;
+    padding: 16px;
+    align-items: center;
 }
 
-.payment-product img {
-    width: 55%;
-    border-radius: 16px;
-    object-fit: cover;
+/* WRAPPER GAMBAR */
+.product-image {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f8fafc;
 }
 
-.payment-product .info {
+/* GAMBAR ASLI */
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* PENTING: BIAR TAJEM */
+    image-rendering: auto;
+}
+
+/* INFO */
+.product-info {
     flex: 1;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 6px 0;
+    line-height: 1.3;
+}
+
+.product-price {
+    color: #22c55e;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .badge {
     background: #e5e7eb;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 999px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
 }
 
-.price {
-    color: #22c55e;
-    font-size: 20px;
-    font-weight: 700;
-}
 
-/* DETAIL */
-.payment-form h5 {
-    font-weight: 700;
-    margin-bottom: 16px;
+/* FORM */
+.payment-form {
+    border-radius: 22px;
+    padding: 24px;
 }
 
 .detail-row {
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
     margin-bottom: 8px;
+}
+
+/* METODE */
+.payment-method {
+    background: #f9fafb;
+    border: 1.5px dashed #d1d5db;
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+/* REKENING */
+.rekening-box {
+    background: #eef2ff;
+    border-left: 5px solid #6366f1;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+/* COD */
+.cod-info {
+    background: #ecfeff;
+    border-left: 5px solid #06b6d4;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
 }
 
 /* TOTAL */
@@ -69,15 +126,9 @@
     background: linear-gradient(90deg,#22c55e,#16a34a);
     color: white;
     font-weight: 700;
+    cursor: pointer;
 }
 
-.btn-outline {
-    display: block;
-    margin-top: 10px;
-    padding: 14px;
-    border-radius: 999px;
-    border: 1.5px solid #d1d5db;
-    text-align: center;
-    font-weight: 600;
-    color: #0f172a;
+.btn-primary:hover {
+    opacity: 0.95;
 }

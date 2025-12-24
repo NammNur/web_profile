@@ -28,44 +28,34 @@
                     <th>No</th>
                     <th>Produk</th>
                     <th>Kategori</th>
-                    <th> Nama Pemesan</th>
+                    <th>Nama Pemesan</th>
                     <th>Alamat</th>
                     <th>Jumlah</th>
                     <th>Total</th>
+                    <th>Metode Pembayaran</th>
                     <th>Status</th>
                     <th>Catatan</th>
+                    <th>Bukti</th>
                     <th>Aksi</th>
                     <th>Tanggal</th>
                 </tr>
             </thead>
 
             <tbody>
-                @forelse ($orders as $o)
+            @forelse ($orders as $o)
                 <tr>
                     <td class="center">{{ $loop->iteration }}</td>
-
                     <td>{{ $o->nama_produk }}</td>
-
                     <td class="center">
                         {{ ucfirst(str_replace('produksi ', '', $o->produk->kategori ?? '-')) }}
                     </td>
-
-                    {{-- NAMA PEMESAN --}}
-                    <td>
-                        {{ $o->user->nama ?? '-' }}
-                    </td>
-
-                    {{-- ALAMAT --}}
-                    <td>
-                        {{ $o->alamat ?? '-' }}
-                    </td>
-
+                    <td>{{ $o->user->nama ?? '-' }}</td>
+                    <td>{{ $o->alamat ?? '-' }}</td>
                     <td class="center">{{ $o->quantity }}</td>
+                    <td class="right">Rp {{ number_format($o->total_price, 0, ',', '.') }}</td>
+                    <td class="center">{{ strtoupper($o->metode_pembayaran ?? '-') }}</td>
 
-                    <td class="right">
-                        Rp {{ number_format($o->total_price, 0, ',', '.') }}
-                    </td>
-
+                    {{-- STATUS (AMBIL MURNI DARI DATABASE) --}}
                     <td class="center">
                         <span class="status {{ $o->status }}">
                             {{ ucfirst($o->status) }}
@@ -74,26 +64,37 @@
 
                     <td>{{ $o->catatan ?? '-' }}</td>
 
-                    
+                    {{-- BUKTI --}}
+                    <td class="center">
+                        @if ($o->bukti_pembayaran)
+                            <a href="{{ asset('storage/'.$o->bukti_pembayaran) }}" target="_blank">
+                                <img src="{{ asset('storage/'.$o->bukti_pembayaran) }}"
+                                     width="70"
+                                     style="cursor:pointer;border-radius:6px">
+                            </a>
+                        @else
+                            <span class="text-muted">Belum ada</span>
+                        @endif
+                    </td>
+
                    <td class="center aksi-col">
-    @if ($o->status !== 'proses')
+    @if ($o->status === 'pending')
         <a href="{{ route('admin.orders.resiForm', $o->id) }}"
            class="status-btn proses">
-           Proses
+            Proses
         </a>
-    @endif
-</td>
-
-
-                    <td class="center">
-                        {{ $o->created_at->format('d M Y') }}
+    @else
+                            -
+                        @endif
                     </td>
+
+                    <td class="center">{{ $o->created_at->format('d M Y') }}</td>
                 </tr>
-                @empty
+            @empty
                 <tr>
-                    <td colspan="11" class="center">Belum ada data order</td>
+                    <td colspan="13" class="center">Belum ada data order</td>
                 </tr>
-                @endforelse
+            @endforelse
             </tbody>
         </table>
 
