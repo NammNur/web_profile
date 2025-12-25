@@ -5,9 +5,16 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('asset/css/orders.css') }}">
 
-<div class="admin-orders">
 
+
+    <div class="orders-header">
     <h2 class="page-title">Data Orders</h2>
+
+    <button class="btn-export-pdf">
+        <i class="fas fa-file-pdf"></i> Export PDF
+    </button>
+</div>
+
 
     {{-- FILTER KATEGORI --}}
     <form method="GET" action="{{ route('admin.orders') }}" class="filter-bar">

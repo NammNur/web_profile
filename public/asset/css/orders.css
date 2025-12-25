@@ -136,3 +136,38 @@
 .btn-bukti:hover {
     background: #1d4ed8;
 }
+
+/* HEADER + EXPORT */
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* EXPORT PDF BUTTON */
+.btn-export-pdf {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35);
+    transition: all 0.3s ease;
+}
+
+.btn-export-pdf:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.45);
+}
+
+.btn-export-pdf i {
+    font-size: 16px;
+}
