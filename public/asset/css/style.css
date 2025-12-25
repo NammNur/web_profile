@@ -44,36 +44,63 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    width: 28px;       /* LEBIH KECIL */
+    width: 28px;
     height: 28px;
-
-    padding: 0;        /* PENTING */
+    padding: 0;
     margin-left: 8px;
-
     border-radius: 50%;
     background: rgba(255,255,255,0.15);
-    line-height: 0;    /* PENTING */
+    line-height: 0;
 }
 
 .btn-setting img {
-    width: 14px;       /* icon kecil */
+    width: 14px;
     height: 14px;
-    display: block;    /* PENTING */
+    display: block;
 }
 
 .btn-setting:hover {
     background: rgba(255,255,255,0.3);
 }
 
+/* ================================================= */
+/* 🔥 TAMBAHAN AUTH NAVBAR (LOGIN, PENGIRIMAN, LOGOUT) */
+/* ================================================= */
 
-.login {
-    font-size: 11px;
-    color: #fff;
+.auth a {
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
 }
 
-.user-icon {
-    font-size: 14px;
+.auth a:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.auth button {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth button:hover {
+    background: white;
+    color: #064935;
+}
+
+.auth form {
+    margin: 0;
 }
 
 /* HERO */

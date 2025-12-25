@@ -46,30 +46,40 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| USER PROFILE & PESANAN
+| USER PROFILE, PESANAN & PENGIRIMAN
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [UserProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    // PROFILE
+    Route::get('/profile', [UserProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::post('/profile', [UserProfileController::class, 'update'])
+        ->name('profile.update');
 
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
-    Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+    
+    // PRODUK
+    Route::get('/produk', [ProdukController::class, 'index'])
+        ->name('produk.index');
+    Route::get('/produk/{id}', [ProdukController::class, 'show'])
+        ->name('produk.show');
 
-    // PESAN
+    // PESAN PRODUK
     Route::get('/produk/{id}/pesan', [OrderController::class, 'create'])
         ->name('produk.pesan');
-
     Route::post('/produk/{id}/pesan', [OrderController::class, 'store'])
         ->name('produk.pesan.store');
 
-    // ✅ PEMBAYARAN (FIX TOTAL)
+    // PEMBAYARAN
     Route::get('/produk/pembayaran/{id}', [PaymentController::class, 'index'])
         ->name('pembayaran.show');
-
     Route::post('/produk/pembayaran/{id}', [PaymentController::class, 'store'])
         ->name('pembayaran.store');
+
+    // 🚚 PENGIRIMAN USER
+    Route::get('/pengiriman-saya', [OrderController::class, 'pengirimanUser'])
+        ->name('user.pengiriman');
 });
 
 /*
@@ -78,11 +88,16 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->middleware('guest')->group(function () {
-    Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
-    Route::get('/register', [AdminAuthController::class, 'showRegister'])->name('admin.register');
-    Route::post('/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
+    Route::get('/login', [AdminAuthController::class, 'showLogin'])
+        ->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])
+        ->name('admin.login.post');
+
+    Route::get('/register', [AdminAuthController::class, 'showRegister'])
+        ->name('admin.register');
+    Route::post('/register', [AdminAuthController::class, 'register'])
+        ->name('admin.register.post');
 });
 
 /*
@@ -118,16 +133,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 
-    // PENGIRIMAN
+    // PENGIRIMAN ADMIN
     Route::get('/pengiriman', [AdminPengirimanController::class, 'index'])
         ->name('admin.pengiriman');
 
-    Route::get('/admin/orders/{id}/resi', [AdminOrderController::class, 'resiForm'])
+    // RESI
+    Route::get('/orders/{id}/resi', [AdminOrderController::class, 'resiForm'])
         ->name('admin.orders.resiForm');
 
-    Route::patch('/admin/orders/{id}/resi', [AdminOrderController::class, 'storeResi'])
+    Route::patch('/orders/{id}/resi', [AdminOrderController::class, 'storeResi'])
         ->name('admin.orders.storeResi');
 
+    // LOGOUT ADMIN
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
 });

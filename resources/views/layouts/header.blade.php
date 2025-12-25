@@ -39,6 +39,8 @@
             <img src="{{ asset('asset/img/setting.jpg') }}" alt="Setting">
         </a>
 
+        <a href="{{ route('user.pengiriman') }}" class="nav-pengiriman">Data Pesanan</a>
+
         <!-- LOGOUT -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf

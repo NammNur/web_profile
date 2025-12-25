@@ -87,4 +87,12 @@ class OrderController extends Controller
             ->route('home')
             ->with('success', 'Pembayaran berhasil dikonfirmasi');
     }
+    public function pengirimanUser()
+    {
+        $orders = Order::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('produk.pengiriman', compact('orders'));
+    }
 }

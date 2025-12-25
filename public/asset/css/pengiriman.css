@@ -1,0 +1,63 @@
+/* ================= PENGIRIMAN USER ================= */
+
+.pengiriman-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.pengiriman-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* CARD */
+.pengiriman-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 22px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* HEADER */
+.pengiriman-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/* BODY */
+.pengiriman-body p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* FOOTER */
+.pengiriman-footer {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* STATUS */
+.status {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status.proses {
+    background: #f4c400;
+    color: #000;
+}
+
+.status.selesai {
+    background: #2ecc71;
+    color: #fff;
+}
