@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\AdminPengirimanController;
+use App\Http\Controllers\AdminProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,4 +148,17 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // LOGOUT ADMIN
     Route::post('/logout', [AdminAuthController::class, 'logout'])
         ->name('admin.logout');
+
+        Route::get('/produk', [AdminProductController::class, 'index'])
+    ->name('admin.produk');
+
+Route::get('/produk/{id}/edit', [AdminProductController::class, 'edit'])
+    ->name('admin.produk.edit');
+
+Route::put('/produk/{id}', [AdminProductController::class, 'update'])
+    ->name('admin.produk.update');
+
+Route::delete('/produk/{id}', [AdminProductController::class, 'destroy'])
+    ->name('admin.produk.destroy');
+
 });

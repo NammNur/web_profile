@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 
+
 class AdminProductController extends Controller
 {
-    // Tampilkan semua produk
+    /* =========================
+     *  TAMPIL SEMUA PRODUK
+     * ========================= */
     public function index()
     {
         $products = Produk::all();
 
-        // ALIAS TAMBAHAN (TIDAK MENGHAPUS APA PUN)
+        // Alias agar tidak merusak blade lama
         $produk = $products;
 
         return view('admin.manage-product', compact('products', 'produk'));
     }
 
+    /* =========================
+     *  FILTER BY TYPE (DINAMIS)
+     * ========================= */
     public function indexByType($type)
     {
         $produk = Produk::where('kategori', 'produksi ' . $type)->get();
@@ -25,22 +31,39 @@ class AdminProductController extends Controller
         return view('admin.manage-productKonveksi', compact('produk', 'type'));
     }
 
+    public function indexBordir()
+    {
+        $produk = Produk::where('kategori', 'produksi bordir')->get();
+        return view('admin.manage-productBordir', compact('produk'));
+    }
 
+    public function indexPrinting()
+    {
+        $produk = Produk::where('kategori', 'produksi printing')->get();
+        return view('admin.manage-productPrinting', compact('produk'));
+    }
 
+    public function indexLogam()
+    {
+        $produk = Produk::where('kategori', 'produksi logam')->get();
+        return view('admin.manage-productLogam', compact('produk'));
+    }
 
-    // Simpan produk baru
+    /* =========================
+     *  SIMPAN PRODUK BARU
+     * ========================= */
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
-            'satuan' => 'required|string|max:255',
-            'harga' => 'required|integer',
-            'stok' => 'required|integer',
-            'deskripsi' => 'nullable|string|max:1000',
-            'harga_jual' => 'required|integer',
-            'stok_saat_ini' => 'required|integer',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'nama_produk'     => 'required|string|max:255',
+            'kategori'        => 'required|string|max:255',
+            'satuan'          => 'required|string|max:255',
+            'harga'           => 'required|integer',
+            'stok'            => 'required|integer',
+            'deskripsi'       => 'nullable|string|max:1000',
+            'harga_jual'      => 'required|integer',
+            'stok_saat_ini'   => 'required|integer',
+            'foto'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -55,7 +78,52 @@ class AdminProductController extends Controller
         return redirect()->back()->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    // Update produk dari form tabel (updateAll)
+    /* =========================
+     *  EDIT PRODUK (FORM)
+     * ========================= */
+    public function edit($id)
+    {
+        $produk = Produk::where('id_produk', $id)->firstOrFail();
+
+        return view('admin.edit-product', compact('produk'));
+    }
+
+    /* =========================
+     *  UPDATE PRODUK (EDIT)
+     * ========================= */
+  public function update(Request $request, $id)
+{
+    $produk = Produk::where('id_produk', $id)->firstOrFail();
+
+    $request->validate([
+        'nama_produk' => 'required|string|max:255',
+        'kategori'    => 'required|string|max:255',
+        'harga'       => 'required|integer',
+        'stok'        => 'required|integer',
+        'satuan'      => 'nullable|string|max:255',
+        'deskripsi'   => 'nullable|string|max:1000',
+    ]);
+
+    $produk->update([
+        'nama_produk' => $request->nama_produk,
+        'kategori'    => $request->kategori,
+        'harga'       => $request->harga,
+        'stok'        => $request->stok,
+        'satuan'      => $request->satuan,
+        'deskripsi'   => $request->deskripsi,
+    ]);
+
+    // 🔥 AMBIL TYPE DARI KATEGORI
+    $type = str_replace('produksi ', '', $request->kategori);
+
+    return redirect()->route('admin.products.manage', $type)
+        ->with('success', 'Produk berhasil diperbarui!');
+}
+
+
+    /* =========================
+     *  UPDATE DARI TABEL (LAMA)
+     * ========================= */
     public function updateAll(Request $request)
     {
         $update_id = $request->input('update_id');
@@ -80,35 +148,24 @@ class AdminProductController extends Controller
         return redirect()->back()->with('error', 'Produk gagal diupdate!');
     }
 
-    // Hapus produk
+    /* =========================
+     *  HAPUS PRODUK
+     * ========================= */
     public function destroy($id)
     {
-        $product = Produk::find($id);
-        if ($product) {
-            $product->delete();
-            return redirect()->back()->with('success', 'Produk berhasil dihapus!');
+        $produk = Produk::where('id_produk', $id)->first();
+
+        if (!$produk) {
+            return redirect()->back()->with('error', 'Produk tidak ditemukan!');
         }
 
-        return redirect()->back()->with('error', 'Produk tidak ditemukan!');
-    }
+        // Hapus file foto (jika ada)
+        if ($produk->foto && file_exists(public_path('asset/img/' . $produk->foto))) {
+            unlink(public_path('asset/img/' . $produk->foto));
+        }
 
-    public function indexBordir()
-    {
-        $produk = Produk::where('kategori', 'produksi bordir')->get();
+        $produk->delete();
 
-        return view('admin.manage-productBordir', compact('produk'));
-    }
-
-    public function indexPrinting()
-    {
-        $produk = Produk::where('kategori', 'produksi printing')->get();
-
-        return view('admin.manage-productPrinting', compact('produk'));
-    }
-    public function indexLogam()
-    {
-        $produk = Produk::where('kategori', 'produksi logam')->get();
-
-        return view('admin.manage-productLogam', compact('produk'));
+        return redirect()->back()->with('success', 'Produk berhasil dihapus!');
     }
 }

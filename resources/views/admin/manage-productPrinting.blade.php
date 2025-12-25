@@ -48,9 +48,25 @@
                                 {{ Str::limit($p->deskripsi, 50, '...') }}
                             </td>
 
-                            <td>
-                                <button class="btn edit">Edit</button>
-                                <button class="btn delete">Hapus</button>
+                            <!-- 🔥 AKSI -->
+                            <td class="aksi">
+                                <!-- EDIT -->
+                                <a href="{{ route('admin.produk.edit', $p->id_produk) }}"
+                                   class="btn edit">
+                                    Edit
+                                </a>
+
+                                <!-- HAPUS -->
+                                <form action="{{ route('admin.produk.destroy', $p->id_produk) }}"
+                                      method="POST"
+                                      style="display:inline-block;"
+                                      onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn delete">
+                                        Hapus
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty

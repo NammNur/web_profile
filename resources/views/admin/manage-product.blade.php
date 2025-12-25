@@ -8,9 +8,7 @@
 
         <div class="title-bar">Data Produk Jersey</div>
 
-        <!-- TABLE WRAPPER -->
         <div class="table-wrapper">
-
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -27,53 +25,65 @@
                 </thead>
 
                 <tbody>
-                    @forelse ($produk as $p)
-                        <tr>
-                            <td>{{ $p->id_produk }}</td>
+                @forelse ($produk as $p)
+                    <tr>
+                        <td>{{ $p->id_produk }}</td>
 
-                            <td>
-                                @if($p->foto)
-                                    <img src="{{ asset('asset/img/' . $p->foto) }}" class="product-img">
-                                @else
-                                    <span class="text-muted">-</span>
-                                @endif
-                            </td>
+                        <td>
+                            @if($p->foto)
+                                <img src="{{ asset('asset/img/'.$p->foto) }}" class="product-img">
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </td>
 
-                            <td>{{ $p->nama_produk }}</td>
-                            <td>{{ ucfirst($p->kategori) }}</td>
-                            <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
-                            <td>{{ $p->stok }}</td>
-                            <td>{{ $p->satuan ?? '-' }}</td>
-                            <td class="desc">
-                                {{ Str::limit($p->deskripsi, 50, '...') }}
-                            </td>
+                        <td>{{ $p->nama_produk }}</td>
+                        <td>{{ ucfirst($p->kategori) }}</td>
+                        <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
+                        <td>{{ $p->stok }}</td>
+                        <td>{{ $p->satuan ?? '-' }}</td>
+                        <td class="desc">{{ Str::limit($p->deskripsi, 50) }}</td>
 
-                            <td>
-                                <button class="btn edit">Edit</button>
-                                <button class="btn delete">Hapus</button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9" class="empty">
-                                Data produk belum tersedia
-                            </td>
-                        </tr>
-                    @endforelse
+                        <td>
+                            <!-- EDIT -->
+                            <a href="{{ route('admin.produk.edit', $p->id_produk) }}"
+                               class="btn edit">
+                                Edit
+                            </a>
+
+                            <!-- DELETE -->
+                            <form action="{{ route('admin.produk.destroy', $p->id_produk) }}"
+                                  method="POST"
+                                  style="display:inline-block"
+                                  onsubmit="return confirm('Yakin hapus produk ini?')">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn delete">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="9" class="empty">
+                            Data produk belum tersedia
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 
 <style>
-/* ===== TABLE STYLE ===== */
 .table-wrapper {
     background: #fff;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
 }
 
 .admin-table {
@@ -82,21 +92,14 @@
     font-size: 14px;
 }
 
-.admin-table thead {
-    background: #f3f4f6;
-}
-
 .admin-table th,
 .admin-table td {
     padding: 12px;
-    text-align: left;
-    vertical-align: middle;
     border-bottom: 1px solid #e5e7eb;
 }
 
-.admin-table th {
-    font-weight: 600;
-    color: #374151;
+.admin-table thead {
+    background: #f3f4f6;
 }
 
 .admin-table tr:hover {
@@ -117,14 +120,13 @@
     color: #555;
 }
 
-/* ===== BUTTON ===== */
 .btn {
     padding: 6px 12px;
     border-radius: 6px;
-    border: none;
-    cursor: pointer;
     font-size: 12px;
     font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
 .btn.edit {
@@ -132,9 +134,17 @@
     color: #fff;
 }
 
+.btn.edit:hover {
+    background: #1d4ed8;
+}
+
 .btn.delete {
     background: #dc2626;
     color: #fff;
+}
+
+.btn.delete:hover {
+    background: #b91c1c;
 }
 
 .empty {
