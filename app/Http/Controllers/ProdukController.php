@@ -14,31 +14,41 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
-        $kategoriAktif = $request->get('kategori', 'jersey');
+        $kategoriAktif = $request->get('kategori');
+        $search = $request->get('search'); // 🔍 AMBIL KEYWORD SEARCH
 
         $query = Produk::query();
 
+        // FILTER KATEGORI
         if ($kategoriAktif) {
-            // AMAN untuk: jersey / produksi jersey
             $query->where('kategori', 'LIKE', '%' . $kategoriAktif . '%');
         }
 
-        // Urutan kategori
+        // 🔍 SEARCH PRODUK (NAMA & DESKRIPSI)
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_produk', 'LIKE', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        // URUTAN KATEGORI (TETAP)
         $query->orderByRaw("
-            CASE
-                WHEN kategori LIKE '%jersey%' THEN 1
-                WHEN kategori LIKE '%logam%' THEN 2
-                WHEN kategori LIKE '%konveksi%' THEN 3
-                WHEN kategori LIKE '%printing%' THEN 4
-                WHEN kategori LIKE '%bordir%' THEN 5
-                ELSE 6
-            END
-        ");
+        CASE
+            WHEN kategori LIKE '%jersey%' THEN 1
+            WHEN kategori LIKE '%logam%' THEN 2
+            WHEN kategori LIKE '%konveksi%' THEN 3
+            WHEN kategori LIKE '%printing%' THEN 4
+            WHEN kategori LIKE '%bordir%' THEN 5
+            ELSE 6
+        END
+    ");
 
         $products = $query->get();
 
         return view('produk.index', compact('products', 'kategoriAktif'));
     }
+
 
     public function show($id)
     {
